@@ -101,6 +101,11 @@ body {
   grid-template-columns: repeat(var(--grid-columns), 1fr);
 }
 
+// webgl
+[data-webgl-media] {
+  opacity: 0;
+}
+
 // tweakpane
 .tp-dfwv {
   position: fixed !important;

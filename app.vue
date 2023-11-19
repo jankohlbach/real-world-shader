@@ -1,19 +1,49 @@
+<script setup lang="ts">
+import gsap from 'gsap'
+import { CustomEase } from 'gsap/all'
+
+onMounted(() => {
+  gsap.registerPlugin(CustomEase)
+})
+</script>
+
 <template>
   <main>
+    <Canvas />
     <section class="container">
-      <h1>real world shader</h1>
+      <h1>real world shader (wip)</h1>
     </section>
     <section class="container">
-      <h2>image effects</h2>
+      <h2>distortion effects</h2>
       <div class="grid">
         <div class="tile">
-          shader preview 1
+          <h3 class="h5">
+            effect 1
+          </h3>
+          <img src="/texture.jpg" data-webgl-media>
         </div>
         <div class="tile">
-          shader preview 2
+          <h3 class="h5">
+            effect 2
+          </h3>
+          <img src="/texture.jpg" data-webgl-media>
         </div>
         <div class="tile">
-          shader preview 3
+          <h3 class="h5">
+            effect 3
+          </h3>
+          <img src="/texture.jpg" data-webgl-media>
+        </div>
+      </div>
+    </section>
+    <section class="container">
+      <h2>rgb effects</h2>
+      <div class="grid">
+        <div class="tile">
+          <h3 class="h5">
+            effect 1
+          </h3>
+          <img src="/texture.jpg" data-webgl-media>
         </div>
       </div>
     </section>
@@ -21,19 +51,34 @@
       <h2>background noise effects</h2>
       <div class="grid">
         <div class="tile">
-          shader preview 1
+          <h3 class="h5">
+            effect 1
+          </h3>
+          <img src="/texture.jpg" data-webgl-media>
         </div>
         <div class="tile">
-          shader preview 2
+          <h3 class="h5">
+            effect 2
+          </h3>
+          <img src="/texture.jpg" data-webgl-media>
         </div>
         <div class="tile">
-          shader preview 3
+          <h3 class="h5">
+            effect 3
+          </h3>
+          <img src="/texture.jpg" data-webgl-media>
         </div>
         <div class="tile">
-          shader preview 4
+          <h3 class="h5">
+            effect 4
+          </h3>
+          <img src="/texture.jpg" data-webgl-media>
         </div>
         <div class="tile">
-          shader preview 5
+          <h3 class="h5">
+            effect 5
+          </h3>
+          <img src="/texture.jpg" data-webgl-media>
         </div>
       </div>
     </section>
@@ -51,6 +96,10 @@ section {
 
 .tile {
   grid-column: span 12;
+}
+
+img {
+  margin-top: clampFluid(10, 20);
 }
 
 @media (min-width: 520px) {

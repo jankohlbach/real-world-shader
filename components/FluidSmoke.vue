@@ -68,7 +68,7 @@ onMounted(() => {
   requestAnimationFrame(render)
 
   window.addEventListener('resize', debounce(() => {
-    resizeThreeCanvas(camera, renderer)
+    resizeThreeCanvas({ camera, renderer })
 
     bufferMaterial.uniforms.uResolution.value.x = window.innerWidth
     bufferMaterial.uniforms.uResolution.value.y = window.innerHeight

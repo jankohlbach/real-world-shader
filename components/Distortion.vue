@@ -25,7 +25,7 @@ onMounted(() => {
       uTime: { value: 0 },
       uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
       uMouse: { value: new THREE.Vector2(cursor.current.x, cursor.current.y) },
-      uImage: { value: new THREE.TextureLoader().load('/texture.svg') }
+      uImage: { value: new THREE.TextureLoader().load('/texture.jpg') }
     },
     vertexShader: vsSource,
     fragmentShader: fsSource,
@@ -65,7 +65,7 @@ onMounted(() => {
   })
 
   window.addEventListener('resize', debounce(() => {
-    resizeThreeCanvas(camera, renderer)
+    resizeThreeCanvas({ camera, renderer })
 
     material.uniforms.uResolution.value.x = window.innerWidth
     material.uniforms.uResolution.value.y = window.innerHeight

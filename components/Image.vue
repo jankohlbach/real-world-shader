@@ -129,7 +129,7 @@ onMounted(() => {
   requestAnimationFrame(render)
 
   window.addEventListener('resize', debounce(() => {
-    resizeThreeCanvas(camera, renderer)
+    resizeThreeCanvas({ camera, renderer })
 
     camera.fov = 2 * Math.atan((window.innerHeight / 2) / 500) * 180 / Math.PI
     camera.updateProjectionMatrix()
