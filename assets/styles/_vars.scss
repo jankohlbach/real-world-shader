@@ -1,0 +1,55 @@
+@use 'functions' as *;
+
+:root {
+  // spacings
+
+  // grid
+  --fluid-min: 375;
+  --fluid-max: 1720;
+  --container-max-width: #{to-rem(1920)};
+  --grid-margin: #{to-rem(20)};
+  --grid-gutter: #{clampFluid(10, 20)};
+  --grid-max-width: calc(var(--container-max-width) - var(--grid-margin) * 2);
+  --grid-columns: 12;
+
+  // fonts
+  --ff-primary: 'Open Sans', 'Fira Sans', 'Source Sans Pro', 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+
+  // font-sizes
+  --fs-base: #{clampFluid(18, 24)};
+  --fs-1: #{clampFluid(54, 72)};
+  --fs-2: #{clampFluid(44, 60)};
+  --fs-3: #{clampFluid(38, 50)};
+  --fs-4: #{clampFluid(32, 42)};
+  --fs-5: #{clampFluid(26, 34)};
+  --fs-6: #{clampFluid(22, 28)};
+
+  // font-weights
+  --fw-thin: 100;
+  --fw-hairline: var(--fw-thin);
+  --fw-xlight: 200;
+  --fw-ultralight: var(--fw-xlight);
+  --fw-light: 300;
+  --fw-normal: 400;
+  --fw-regular: var(--fw-normal);
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-demibold: var(--fw-semibold);
+  --fw-bold: 700;
+  --fw-xbold: 800;
+  --fw-ultrabold: var(--fw-xbold);
+  --fw-black: 900;
+  --fw-heavy: var(--fw-black);
+  --fw-xblack: 950;
+  --fw-ultrablack: var(--fw-xblack);
+
+  // colors
+  --c-light: #FFFFFF;
+  --c-dark: #000000;
+
+  // animations
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-in-out-custom: cubic-bezier(0.4, 0, 0.2, 1);
+
+  // z-index
+}

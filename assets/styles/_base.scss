@@ -1,0 +1,107 @@
+@use 'mixins' as *;
+
+// reset
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+html, body {
+  min-height: 100%;
+  height: auto;
+}
+
+body {
+  width: 100%;
+  overflow-x: hidden;
+  hyphens: auto;
+  -webkit-hyphenate-character: '-';
+  hyphenate-character: '-';
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+
+  @include has-hover {
+    width: 100vw;
+    padding-right: 10px;
+  }
+}
+
+img, picture, video, svg {
+  display: block;
+  max-width: 100%;
+}
+
+canvas {
+  display: block;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+button {
+  appearance: none;
+  background: transparent;
+  color: inherit;
+  border: none;
+  cursor: pointer;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+a {
+  color: inherit;
+}
+
+// custom
+::selection {
+  color: var(--c-dark);
+  background-color: var(--c-light);
+}
+
+body {
+  font-family: var(--ff-primary);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-base);
+  color: var(--c-light);
+  background-color: var(--c-dark);
+}
+
+// scroll
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+// grid
+.container {
+  max-width: var(--container-max-width);
+  padding-inline: var(--grid-margin);
+  margin-inline: auto;
+}
+
+.grid {
+  display: grid;
+  gap: var(--grid-gutter);
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+}
+
+// tweakpane
+.tp-dfwv {
+  position: fixed !important;
+}

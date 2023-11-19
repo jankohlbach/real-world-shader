@@ -1,0 +1,29 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@nuxtjs/eslint-config-typescript": "^12.1.0",
+    "@tweakpane/core": "^2.0.1",
+    "@types/node": "^20.9.2",
+    "@types/three": "^0.158.2",
+    "eslint": "^8.54.0",
+    "nuxt": "^3.8.1",
+    "sass": "^1.69.5",
+    "tweakpane": "^4.0.1",
+    "typescript": "^5.2.2",
+    "vite-plugin-glsl": "^1.1.2",
+    "vue-tsc": "^1.8.22"
+  },
+  "dependencies": {
+    "@studio-freight/lenis": "^1.0.27",
+    "gsap": "^3.12.2",
+    "split-type": "^0.3.4",
+    "three": "^0.158.0"
+  }
+}
