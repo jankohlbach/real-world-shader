@@ -20,19 +20,19 @@ onMounted(() => {
           <h3 class="h5">
             effect 1
           </h3>
-          <img src="/texture.jpg" data-webgl-media>
+          <img src="/something.webp" data-webgl-media>
         </div>
         <div class="tile">
           <h3 class="h5">
             effect 2
           </h3>
-          <img src="/texture.jpg" data-webgl-media>
+          <img src="/something.webp" data-webgl-media>
         </div>
         <div class="tile">
           <h3 class="h5">
             effect 3
           </h3>
-          <img src="/texture.jpg" data-webgl-media>
+          <img src="/something.webp" data-webgl-media>
         </div>
       </div>
     </section>
@@ -43,7 +43,7 @@ onMounted(() => {
           <h3 class="h5">
             effect 1
           </h3>
-          <img src="/texture.jpg" data-webgl-media>
+          <img src="/something.webp" data-webgl-media>
         </div>
       </div>
     </section>
@@ -54,31 +54,31 @@ onMounted(() => {
           <h3 class="h5">
             effect 1
           </h3>
-          <img src="/texture.jpg" data-webgl-media>
+          <img src="/something.webp" data-webgl-media>
         </div>
         <div class="tile">
           <h3 class="h5">
             effect 2
           </h3>
-          <img src="/texture.jpg" data-webgl-media>
+          <img src="/something.webp" data-webgl-media>
         </div>
         <div class="tile">
           <h3 class="h5">
             effect 3
           </h3>
-          <img src="/texture.jpg" data-webgl-media>
+          <img src="/something.webp" data-webgl-media>
         </div>
         <div class="tile">
           <h3 class="h5">
             effect 4
           </h3>
-          <img src="/texture.jpg" data-webgl-media>
+          <img src="/something.webp" data-webgl-media>
         </div>
         <div class="tile">
           <h3 class="h5">
             effect 5
           </h3>
-          <img src="/texture.jpg" data-webgl-media>
+          <img src="/something.webp" data-webgl-media>
         </div>
       </div>
     </section>
