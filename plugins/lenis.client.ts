@@ -22,8 +22,9 @@ export default defineNuxtPlugin(() => {
     lenis.start()
   }
 
-  lenis.on('scroll', (_e: any) => {
+  lenis.on('scroll', (e: any) => {
     scroll.value.scrollY = window.scrollY
+    scroll.value.scrollVelocity = e.velocity
   })
 
   return {

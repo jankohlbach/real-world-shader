@@ -9,6 +9,7 @@ onMounted(() => {
 
 <template>
   <main>
+    <Cursor />
     <Canvas />
     <section class="container">
       <h1>real world shader (wip)</h1>

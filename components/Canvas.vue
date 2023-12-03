@@ -8,6 +8,7 @@ import fsSource from '~/assets/shader/fragment.glsl'
 
 const nuxtApp = useNuxtApp()
 const scroll = useScroll()
+const { cursorPos } = useCursor()
 
 const canvas = ref()
 
@@ -22,7 +23,7 @@ let mediaStore: {
   top: number,
   left: number,
   mouseEnter: number,
-  cursorPos: {
+  mouseOverPos: {
     current: {
       x: number,
       y: number
@@ -58,8 +59,8 @@ const handleMousePos = (e: any, index: number) => {
   const x = e.offsetX / bounds.width
   const y = e.offsetY / bounds.height
 
-  mediaStore[index].cursorPos.target.x = x
-  mediaStore[index].cursorPos.target.y = y
+  mediaStore[index].mouseOverPos.target.x = x
+  mediaStore[index].mouseOverPos.target.y = y
 }
 
 const handleMouseLeave = (index: number) => {
@@ -124,7 +125,7 @@ const setMediaStore = (scrollY: number) => {
       top: bounds.top + scrollY,
       left: bounds.left,
       mouseEnter: 0,
-      cursorPos: {
+      mouseOverPos: {
         current: {
           x: 0.5,
           y: 0.5
@@ -161,11 +162,13 @@ onMounted(() => {
     uniforms: {
       uTime: { value: 0 },
       uCursor: { value: new THREE.Vector2(0.5, 0.5) },
+      uScrollVelocity: { value: 0 },
       uTexture: { value: null },
       uTextureSize: { value: new THREE.Vector2(100, 100) },
       uQuadSize: { value: new THREE.Vector2(100, 100) },
-      uBorderRadius: { value: 10 },
-      uMouseEnter: { value: 0 }
+      uBorderRadius: { value: 0 },
+      uMouseEnter: { value: 0 },
+      uMouseOverPos: { value: new THREE.Vector2(0.5, 0.5) }
     },
     vertexShader: vsSource,
     fragmentShader: fsSource,
@@ -185,12 +188,15 @@ onMounted(() => {
     time /= 1000
 
     mediaStore.forEach((object) => {
-      object.cursorPos.current.x = lerp(object.cursorPos.current.x, object.cursorPos.target.x, 0.05)
-      object.cursorPos.current.y = lerp(object.cursorPos.current.y, object.cursorPos.target.y, 0.05)
+      object.mouseOverPos.current.x = lerp(object.mouseOverPos.current.x, object.mouseOverPos.target.x, 0.05)
+      object.mouseOverPos.current.y = lerp(object.mouseOverPos.current.y, object.mouseOverPos.target.y, 0.05)
 
       object.material.uniforms.uTime.value = time
-      object.material.uniforms.uCursor.value.x = object.cursorPos.current.x
-      object.material.uniforms.uCursor.value.y = object.cursorPos.current.y
+      object.material.uniforms.uCursor.value.x = cursorPos.value.current.x
+      object.material.uniforms.uCursor.value.y = cursorPos.value.current.y
+      object.material.uniforms.uScrollVelocity.value = scroll.value.scrollVelocity
+      object.material.uniforms.uMouseOverPos.value.x = object.mouseOverPos.current.x
+      object.material.uniforms.uMouseOverPos.value.y = object.mouseOverPos.current.y
       object.material.uniforms.uMouseEnter.value = object.mouseEnter
     })
 
