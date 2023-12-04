@@ -3,8 +3,12 @@ import gsap from 'gsap'
 import { CustomEase } from 'gsap/all'
 import * as THREE from 'three'
 
-import vsSource from '~/assets/shader/vertex.glsl'
-import fsSource from '~/assets/shader/fragment.glsl'
+import baseVertex from '~/assets/shader/baseVertex.glsl'
+import baseFragment from '~/assets/shader/baseFragment.glsl'
+
+const shaderFiles = import.meta.glob([
+  '~/assets/shader/distortion/*.glsl'
+], { eager: true })
 
 const nuxtApp = useNuxtApp()
 const scroll = useScroll()
@@ -38,6 +42,13 @@ let mediaStore: {
 let scene: THREE.Scene
 let geometry: THREE.PlaneGeometry
 let material: THREE.ShaderMaterial
+
+const findShader = (name: string[]) => {
+  return {
+    vertex: (shaderFiles[`/assets/shader/${name[0]}/${name[1]}-vertex.glsl`] as any).default,
+    fragment: (shaderFiles[`/assets/shader/${name[0]}/${name[1]}-fragment.glsl`] as any).default
+  }
+}
 
 const setPositions = () => {
   mediaStore.forEach((object) => {
@@ -91,6 +102,18 @@ const setMediaStore = (scrollY: number) => {
 
     const bounds = media.getBoundingClientRect()
     const imageMaterial = material.clone()
+
+    const shaderFile = media.dataset.shader?.split('/')
+
+    if (shaderFile) {
+      const foundShader = findShader(shaderFile)
+
+      if (foundShader.vertex && foundShader.fragment) {
+        imageMaterial.vertexShader = foundShader.vertex
+        imageMaterial.fragmentShader = foundShader.fragment
+      }
+    }
+
     const imageMesh = new THREE.Mesh(geometry, imageMaterial)
 
     let texture: THREE.Texture | null = null
@@ -170,8 +193,8 @@ onMounted(() => {
       uMouseEnter: { value: 0 },
       uMouseOverPos: { value: new THREE.Vector2(0.5, 0.5) }
     },
-    vertexShader: vsSource,
-    fragmentShader: fsSource,
+    vertexShader: baseVertex,
+    fragmentShader: baseFragment,
     glslVersion: THREE.GLSL3
   })
 

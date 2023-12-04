@@ -21,19 +21,13 @@ onMounted(() => {
           <h3 class="h5">
             effect 1
           </h3>
-          <img src="/something.webp" data-webgl-media>
+          <img src="/something.webp" data-webgl-media data-shader="distortion/001">
         </div>
         <div class="tile">
           <h3 class="h5">
             effect 2
           </h3>
-          <img src="/something.webp" data-webgl-media>
-        </div>
-        <div class="tile">
-          <h3 class="h5">
-            effect 3
-          </h3>
-          <img src="/something.webp" data-webgl-media>
+          <img src="/something.webp" data-webgl-media data-shader="distortion/002">
         </div>
       </div>
     </section>

@@ -18,7 +18,5 @@ void main() {
   vUv = uv;
   vUvCover = getCoverUvVert(uv, uTextureSize, uQuadSize);
 
-  vec3 newPosition = vec3(position.x, position.y, 10.0 * sin(uv.x * 10.0 + uTime));
-
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 }
