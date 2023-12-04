@@ -50,7 +50,7 @@ const handleMouseEnter = (index: number) => {
   gsap.fromTo(
     mediaStore[index],
     { mouseEnter: 0 },
-    { mouseEnter: 1, duration: 1, ease: CustomEase.create('custom', '0.4, 0, 0.2, 1') }
+    { mouseEnter: 1, duration: 0.6, ease: CustomEase.create('custom', '0.4, 0, 0.2, 1') }
   )
 }
 
@@ -67,7 +67,7 @@ const handleMouseLeave = (index: number) => {
   gsap.fromTo(
     mediaStore[index],
     { mouseEnter: 1 },
-    { mouseEnter: 0, duration: 1, ease: CustomEase.create('custom', '0.4, 0, 0.2, 1') }
+    { mouseEnter: 0, duration: 0.6, ease: CustomEase.create('custom', '0.4, 0, 0.2, 1') }
   )
 }
 
