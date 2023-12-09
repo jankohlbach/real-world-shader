@@ -38,7 +38,7 @@ onMounted(() => {
           shader="hover/001"
         />
         <EffectTile
-          title="effect23"
+          title="effect 2"
           image-src="/something.webp"
           shader="hover/002"
         />
