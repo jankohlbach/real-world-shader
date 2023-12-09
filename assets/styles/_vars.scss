@@ -16,6 +16,7 @@
   --ff-primary: 'Open Sans', 'Fira Sans', 'Source Sans Pro', 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 
   // font-sizes
+  --fs-tiny: #{clampFluid(14, 16)};
   --fs-base: #{clampFluid(18, 24)};
   --fs-1: #{clampFluid(54, 72)};
   --fs-2: #{clampFluid(44, 60)};

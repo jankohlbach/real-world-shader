@@ -22,12 +22,16 @@ onMounted(() => {
             effect 1
           </h3>
           <img src="/something.webp" data-webgl-media data-shader="distortion/001">
+          <a href="https://github.com/jankohlbach/real-world-shader/blob/main/assets/shader/distortion/001-vertex.glsl" target="_blank">vertex</a>
+          <a href="https://github.com/jankohlbach/real-world-shader/blob/main/assets/shader/distortion/001-fragment.glsl" target="_blank">fragment</a>
         </div>
         <div class="tile">
           <h3 class="h5">
             effect 2
           </h3>
           <img src="/something.webp" data-webgl-media data-shader="distortion/002">
+          <a href="https://github.com/jankohlbach/real-world-shader/blob/main/assets/shader/distortion/002-vertex.glsl" target="_blank">vertex</a>
+          <a href="https://github.com/jankohlbach/real-world-shader/blob/main/assets/shader/distortion/002-fragment.glsl" target="_blank">fragment</a>
         </div>
       </div>
     </section>
@@ -95,6 +99,14 @@ section {
 
 img {
   margin-top: clampFluid(10, 20);
+}
+
+a {
+  display: block;
+  font-size: var(--fs-tiny);
+  font-weight: var(--fw-light);
+  line-height: 1.2;
+  text-decoration-thickness: 0.5px;
 }
 
 @media (min-width: 520px) {
