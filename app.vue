@@ -52,6 +52,11 @@ onMounted(() => {
           image-src="/something.webp"
           shader="hover/003"
         />
+        <EffectTile
+          title="effect 4"
+          image-src="/something.webp"
+          shader="hover/004"
+        />
       </div>
     </section>
     <section class="container">
