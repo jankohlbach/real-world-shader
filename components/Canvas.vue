@@ -18,6 +18,7 @@ const canvas = ref()
 
 const CAMERA_POS = 500
 
+let observer: IntersectionObserver
 let mediaStore: {
   media: HTMLImageElement,
   material: THREE.ShaderMaterial,
@@ -26,6 +27,7 @@ let mediaStore: {
   height: number,
   top: number,
   left: number,
+  isInView: boolean,
   mouseEnter: number,
   mouseOverPos: {
     current: {
@@ -52,8 +54,10 @@ const findShader = (name: string[]) => {
 
 const setPositions = () => {
   mediaStore.forEach((object) => {
-    object.mesh.position.x = object.left - window.innerWidth / 2 + object.width / 2
-    object.mesh.position.y = -object.top + window.innerHeight / 2 - object.height / 2 + scroll.value.scrollY
+    if (object.isInView) {
+      object.mesh.position.x = object.left - window.innerWidth / 2 + object.width / 2
+      object.mesh.position.y = -object.top + window.innerHeight / 2 - object.height / 2 + scroll.value.scrollY
+    }
   })
 }
 
@@ -84,6 +88,8 @@ const handleMouseLeave = (index: number) => {
 
 const clearMediaStore = () => {
   mediaStore.forEach((object) => {
+    observer.unobserve(object.media)
+
     object.mesh.geometry.dispose()
     object.material.dispose()
 
@@ -95,6 +101,8 @@ const setMediaStore = (scrollY: number) => {
   const media = [...document.querySelectorAll('[data-webgl-media]')] as HTMLImageElement[]
 
   mediaStore = media.map((media, i) => {
+    observer.observe(media)
+
     media.dataset.index = String(i)
     media.addEventListener('mouseenter', () => handleMouseEnter(i))
     media.addEventListener('mousemove', e => handleMousePos(e, i))
@@ -147,6 +155,7 @@ const setMediaStore = (scrollY: number) => {
       height: bounds.height,
       top: bounds.top + scrollY,
       left: bounds.left,
+      isInView: true,
       mouseEnter: 0,
       mouseOverPos: {
         current: {
@@ -165,10 +174,25 @@ const setMediaStore = (scrollY: number) => {
 const calcFov = () => 2 * Math.atan((window.innerHeight / 2) / CAMERA_POS) * 180 / Math.PI
 
 onMounted(() => {
+  // register actions after page transition
   nuxtApp.hook('page:transition:finish', () => {
     clearMediaStore()
     setMediaStore(0)
   })
+
+  // create intersection observer to only render in view elements
+  observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const index = (entry.target as HTMLElement).dataset.index
+
+        if (index) {
+          mediaStore[parseInt(index)].isInView = entry.isIntersecting
+        }
+      })
+    },
+    { rootMargin: '20px 0px 20px 0px' }
+  )
 
   // scene
   scene = new THREE.Scene()
@@ -211,16 +235,18 @@ onMounted(() => {
     time /= 1000
 
     mediaStore.forEach((object) => {
-      object.mouseOverPos.current.x = lerp(object.mouseOverPos.current.x, object.mouseOverPos.target.x, 0.05)
-      object.mouseOverPos.current.y = lerp(object.mouseOverPos.current.y, object.mouseOverPos.target.y, 0.05)
+      if (object.isInView) {
+        object.mouseOverPos.current.x = lerp(object.mouseOverPos.current.x, object.mouseOverPos.target.x, 0.05)
+        object.mouseOverPos.current.y = lerp(object.mouseOverPos.current.y, object.mouseOverPos.target.y, 0.05)
 
-      object.material.uniforms.uTime.value = time
-      object.material.uniforms.uCursor.value.x = cursorPos.value.current.x
-      object.material.uniforms.uCursor.value.y = cursorPos.value.current.y
-      object.material.uniforms.uScrollVelocity.value = scroll.value.scrollVelocity
-      object.material.uniforms.uMouseOverPos.value.x = object.mouseOverPos.current.x
-      object.material.uniforms.uMouseOverPos.value.y = object.mouseOverPos.current.y
-      object.material.uniforms.uMouseEnter.value = object.mouseEnter
+        object.material.uniforms.uTime.value = time
+        object.material.uniforms.uCursor.value.x = cursorPos.value.current.x
+        object.material.uniforms.uCursor.value.y = cursorPos.value.current.y
+        object.material.uniforms.uScrollVelocity.value = scroll.value.scrollVelocity
+        object.material.uniforms.uMouseOverPos.value.x = object.mouseOverPos.current.x
+        object.material.uniforms.uMouseOverPos.value.y = object.mouseOverPos.current.y
+        object.material.uniforms.uMouseEnter.value = object.mouseEnter
+      }
     })
 
     setPositions()
