@@ -38,6 +38,7 @@ defineProps({
 
 img {
   margin-top: clampFluid(10, 20);
+  aspect-ratio: 1;
 }
 
 a {

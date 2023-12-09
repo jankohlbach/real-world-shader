@@ -7,7 +7,8 @@ import baseVertex from '~/assets/shader/baseVertex.glsl'
 import baseFragment from '~/assets/shader/baseFragment.glsl'
 
 const shaderFiles = import.meta.glob([
-  '~/assets/shader/distortion/*.glsl'
+  '~/assets/shader/distortion/*.glsl',
+  '~/assets/shader/hover/*.glsl'
 ], { eager: true })
 
 const nuxtApp = useNuxtApp()
@@ -207,6 +208,7 @@ onMounted(() => {
   geometry = new THREE.PlaneGeometry(1, 1, 100, 100)
   material = new THREE.ShaderMaterial({
     uniforms: {
+      uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
       uTime: { value: 0 },
       uCursor: { value: new THREE.Vector2(0.5, 0.5) },
       uScrollVelocity: { value: 0 },
@@ -239,6 +241,8 @@ onMounted(() => {
         object.mouseOverPos.current.x = lerp(object.mouseOverPos.current.x, object.mouseOverPos.target.x, 0.05)
         object.mouseOverPos.current.y = lerp(object.mouseOverPos.current.y, object.mouseOverPos.target.y, 0.05)
 
+        object.material.uniforms.uResolution.value.x = window.innerWidth
+        object.material.uniforms.uResolution.value.y = window.innerHeight
         object.material.uniforms.uTime.value = time
         object.material.uniforms.uCursor.value.x = cursorPos.value.current.x
         object.material.uniforms.uCursor.value.y = cursorPos.value.current.y

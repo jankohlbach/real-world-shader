@@ -30,38 +30,22 @@ onMounted(() => {
       </div>
     </section>
     <section class="container">
-      <h2>rgb effects</h2>
+      <h2>hover effects</h2>
       <div class="grid">
         <EffectTile
           title="effect 1"
           image-src="/something.webp"
+          shader="hover/001"
+        />
+        <EffectTile
+          title="effect23"
+          image-src="/something.webp"
+          shader="hover/002"
         />
       </div>
     </section>
     <section class="container">
-      <h2>background noise effects</h2>
-      <div class="grid">
-        <EffectTile
-          title="effect 1"
-          image-src="/something.webp"
-        />
-        <EffectTile
-          title="effect 2"
-          image-src="/something.webp"
-        />
-        <EffectTile
-          title="effect 3"
-          image-src="/something.webp"
-        />
-        <EffectTile
-          title="effect 4"
-          image-src="/something.webp"
-        />
-        <EffectTile
-          title="effect 5"
-          image-src="/something.webp"
-        />
-      </div>
+      <h2>...</h2>
     </section>
   </main>
 </template>

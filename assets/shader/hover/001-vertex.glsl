@@ -17,11 +17,22 @@ out vec2 vUvCover;
 
 void main() {
   vUv = uv;
-  vUvCover = getCoverUvVert(uv, uTextureSize, uQuadSize);
 
-  // wave based on x
-  vec3 newPosition = vec3(position.x, position.y, 10.0 * sin(uv.x * 10.0 + uTime));
+  // transition to fullscreen
+  vec4 defaultState = modelMatrix * vec4(position, 1.0);
+  vec4 fullscreenState = vec4(position, 1.0);
+
+  // adjust aspect ratio
+  fullscreenState.x *= uResolution.x - uQuadSize.x / 2.0;
+  fullscreenState.y *= uResolution.y - uQuadSize.y / 2.0;
+  fullscreenState.z = 100.0;
+
+  // calculate cover based on current state
+  vUvCover = getCoverUvVert(uv, uTextureSize, mix(uQuadSize, uResolution, uMouseEnter));
+
+  // calculate final state
+  vec4 finalState = mix(defaultState, fullscreenState, uMouseEnter);
 
   // output
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
+  gl_Position = projectionMatrix * viewMatrix * finalState;
 }

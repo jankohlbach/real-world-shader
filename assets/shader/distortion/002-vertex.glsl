@@ -1,3 +1,4 @@
+uniform vec2 uResolution; // in pixel
 uniform float uTime; // in s
 uniform vec2 uCursor; // 0 (left) 0 (top) / 1 (right) 1 (bottom)
 uniform float uScrollVelocity; // - (scroll up) / + (scroll down)
@@ -18,7 +19,9 @@ void main() {
   vUv = uv;
   vUvCover = getCoverUvVert(uv, uTextureSize, uQuadSize);
 
+  // wave based on y
   vec3 newPosition = vec3(position.x, position.y, 10.0 * sin(uv.y * 10.0 + uTime));
 
+  // output
   gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
 }
