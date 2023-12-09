@@ -27,6 +27,11 @@ onMounted(() => {
           image-src="/something.webp"
           shader="distortion/002"
         />
+        <EffectTile
+          title="effect 3"
+          image-src="/something.webp"
+          shader="distortion/003"
+        />
       </div>
     </section>
     <section class="container">
@@ -41,6 +46,11 @@ onMounted(() => {
           title="effect 2"
           image-src="/something.webp"
           shader="hover/002"
+        />
+        <EffectTile
+          title="effect 3"
+          image-src="/something.webp"
+          shader="hover/003"
         />
       </div>
     </section>
