@@ -19,7 +19,7 @@ out vec4 outColor;
 
 vec2 bulge(vec2 uv) {
   // centering
-  vec2 tempUv = uv - vec2(uMouseOverPos.x, 1.0 - uMouseOverPos.y);
+  vec2 tempUv = uv - vec2(0.5);
 
   // distort in a circle, make it stronger, invert it
   float dist = (length(tempUv) / 1.0);
@@ -29,7 +29,7 @@ vec2 bulge(vec2 uv) {
   tempUv *= distRevert;
 
   // centering
-  tempUv += vec2(uMouseOverPos.x, 1.0 - uMouseOverPos.y);
+  tempUv += vec2(0.5);
 
   return tempUv;
 }
