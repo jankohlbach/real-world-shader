@@ -17,29 +17,23 @@ in vec2 vUvCover;
 out vec4 outColor;
 
 
-vec2 bulge(vec2 uv) {
-  // centering
-  vec2 tempUv = uv - vec2(uMouseOverPos.x, 1.0 - uMouseOverPos.y);
-
-  // distort in a circle, make it stronger, invert it
-  float dist = (length(tempUv) / 1.0);
-  float distStrength = min(dist, 2.0) * 0.2;
-  float distRevert = 1.0 / (1.0 + distStrength);
-
-  tempUv *= distRevert;
-
-  // centering
-  tempUv += vec2(uMouseOverPos.x, 1.0 - uMouseOverPos.y);
-
-  return tempUv;
-}
-
 void main() {
-  vec2 bulgeUv = bulge(vUvCover);
+  vec2 texCoords = vUvCover;
 
-  // texture
-  vec3 texture = vec3(texture(uTexture, mix(vUvCover, bulgeUv, uMouseEnter)));
+  // aspect ratio needed to create a real circle when quadSize is not 1:1 ratio
+  float aspectRatio = uQuadSize.y / uQuadSize.x;
+
+  // create a circle following the mouse
+  float circle = distance(
+    vec2(uMouseOverPos.x, (1.0 - uMouseOverPos.y) * aspectRatio),
+    vec2(vUv.x, vUv.y * aspectRatio)
+  );
+
+  // distort rgb channels separately
+  float r = texture(uTexture, texCoords += mix(0.0, (circle * 0.02), uMouseEnter)).x;
+  float g = texture(uTexture, texCoords += mix(0.0, (circle * 0.025), uMouseEnter)).y;
+  float b = texture(uTexture, texCoords += mix(0.0, (circle * 0.03), uMouseEnter)).z;
 
   // output
-  outColor = vec4(texture, 1.0);
+  outColor = vec4(r, g, b, 1.0);
 }
