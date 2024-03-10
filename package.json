@@ -10,21 +10,21 @@
   "devDependencies": {
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@tweakpane/core": "^2.0.3",
-    "@types/node": "^20.11.6",
-    "@types/three": "^0.160.0",
-    "eslint": "^8.56.0",
-    "nuxt": "^3.9.3",
-    "nuxt-simple-robots": "^4.0.0-rc.13",
-    "sass": "^1.70.0",
+    "@types/node": "^20.11.25",
+    "@types/three": "^0.162.0",
+    "eslint": "^8.57.0",
+    "nuxt": "^3.10.3",
+    "nuxt-simple-robots": "^4.0.0-rc.14",
+    "sass": "^1.71.1",
     "tweakpane": "^4.0.3",
-    "typescript": "^5.3.3",
+    "typescript": "^5.4.2",
     "vite-plugin-glsl": "^1.2.1",
     "vue-tsc": "^1.8.27"
   },
   "dependencies": {
-    "@studio-freight/lenis": "^1.0.34",
+    "@studio-freight/lenis": "^1.0.39",
     "gsap": "^3.12.5",
     "split-type": "^0.3.4",
-    "three": "^0.160.1"
+    "three": "^0.162.0"
   }
 }

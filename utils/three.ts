@@ -1,5 +1,5 @@
 import { PerspectiveCamera, OrthographicCamera, WebGLRenderer } from 'three'
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer'
+import { EffectComposer } from 'three/examples/jsm/Addons.js'
 
 export const resizeThreeCanvas = ({
   camera,
