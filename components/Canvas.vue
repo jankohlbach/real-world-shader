@@ -125,15 +125,8 @@ const setMediaStore = (scrollY: number) => {
 
     let texture: THREE.Texture | null = null
 
-    const imageEl = new Image()
-    imageEl.crossOrigin = 'anonymous'
-    imageEl.src = media.src
-    texture = new THREE.Texture(imageEl)
-    imageEl.onload = () => {
-      if (texture) {
-        texture.needsUpdate = true
-      }
-    }
+    texture = new THREE.Texture(media)
+    texture.needsUpdate = true
 
     imageMaterial.uniforms.uTexture.value = texture
     imageMaterial.uniforms.uTextureSize.value.x = (media as HTMLImageElement).naturalWidth
