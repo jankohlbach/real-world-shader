@@ -137,6 +137,10 @@ const setMediaStore = (scrollY: number) => {
 
     imageMesh.scale.set(bounds.width, bounds.height, 1)
 
+    if (!(bounds.top >= 0 && bounds.bottom <= window.innerHeight)) {
+      imageMesh.position.y = 2 * window.innerHeight
+    }
+
     scene.add(imageMesh)
 
     return {
@@ -147,7 +151,7 @@ const setMediaStore = (scrollY: number) => {
       height: bounds.height,
       top: bounds.top + scrollY,
       left: bounds.left,
-      isInView: true,
+      isInView: bounds.top >= 0 && bounds.bottom <= window.innerHeight,
       mouseEnter: 0,
       mouseOverPos: {
         current: {
@@ -168,6 +172,7 @@ const calcFov = () => 2 * Math.atan((window.innerHeight / 2) / CAMERA_POS) * 180
 onMounted(() => {
   // register actions after page transition
   nuxtApp.hook('page:transition:finish', () => {
+    window.scrollTo(0, 0)
     clearMediaStore()
     setMediaStore(0)
   })

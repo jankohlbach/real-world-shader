@@ -1,5 +1,10 @@
 <script setup lang="ts">
 defineProps({
+  link: {
+    type: String,
+    required: false,
+    default: null
+  },
   title: {
     type: String,
     required: true
@@ -18,14 +23,26 @@ defineProps({
 
 <template>
   <div class="tile">
-    <h3 class="h5">
-      {{ title }}
-    </h3>
-    <img
-      :src="imageSrc"
-      :data-webgl-media="shader ? 'data-webgl-media' : undefined"
-      :data-shader="shader"
-    >
+    <nuxt-link v-if="link" :to="link" class="wrap">
+      <h3 class="h5">
+        {{ title }}
+      </h3>
+      <img
+        :src="imageSrc"
+        :data-webgl-media="shader ? 'data-webgl-media' : undefined"
+        :data-shader="shader"
+      >
+    </nuxt-link>
+    <div v-else class="wrap">
+      <h3 class="h5">
+        {{ title }}
+      </h3>
+      <img
+        :src="imageSrc"
+        :data-webgl-media="shader ? 'data-webgl-media' : undefined"
+        :data-shader="shader"
+      >
+    </div>
     <a v-if="shader" :href="`https://github.com/jankohlbach/real-world-shader/blob/main/assets/shader/${shader}-vertex.glsl`" target="_blank">vertex</a>
     <a v-if="shader" :href="`https://github.com/jankohlbach/real-world-shader/blob/main/assets/shader/${shader}-fragment.glsl`" target="_blank">fragment</a>
   </div>
@@ -34,6 +51,10 @@ defineProps({
 <style lang="scss" scoped>
 .tile {
   grid-column: span 12;
+}
+
+.wrap {
+  text-decoration: none;
 }
 
 img {
