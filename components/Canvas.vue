@@ -221,7 +221,9 @@ onMounted(() => {
   })
 
   // media details
-  setMediaStore(scroll.value.scrollY)
+  setTimeout(() => {
+    setMediaStore(scroll.value.scrollY)
+  }, 100)
 
   // renderer
   const renderer = new THREE.WebGLRenderer({ canvas: canvas.value, alpha: true, antialias: true })
