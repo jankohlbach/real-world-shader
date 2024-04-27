@@ -1,27 +1,36 @@
 <script setup lang="ts">
 const route = useRoute()
+const { getEffectByPath } = useContent()
+
+const effect = getEffectByPath(route.params.uid)
 </script>
 
 <template>
-  <main>
+  <div class="page">
+    <header class="container">
+      <nuxt-link to="/">
+        {{ '<- back' }}
+      </nuxt-link>
+      <h1>
+        {{ effect.title }}
+      </h1>
+      <p>{{ effect.description }}</p>
+      <ShaderLinks :path="effect.path" />
+    </header>
     <section class="container">
       <div class="wrap">
         <EffectTile
-          :title="String(route.query.title)"
           image-src="/something.webp"
-          :shader="`${String(route.params.uid).split('-')[0]}/${String(route.params.uid).split('-')[1]}`"
+          :shader="effect.path.replace('-', '/')"
         />
       </div>
-      <nuxt-link to="/">
-        back
-      </nuxt-link>
     </section>
-  </main>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-.wrap {
-  max-width: 80vmin;
-  margin-inline: auto;
-}
+// .wrap {
+//   max-width: 80vmin;
+//   margin-inline: auto;
+// }
 </style>
