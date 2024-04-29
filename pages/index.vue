@@ -15,7 +15,7 @@ const { content } = useContent()
     <section v-for="effectGroup, i in content" :key="i" class="container">
       <h2>{{ effectGroup.groupTitle }}</h2>
       <div class="grid">
-        <div v-for="effect, j in effectGroup.effects" :key="j">
+        <div v-for="effect, j in effectGroup.effects" :key="j" class="tile">
           <nuxt-link :to="`/${effect.path}`">
             <EffectTile
               :image-src="effect.image"
@@ -35,11 +35,19 @@ const { content } = useContent()
 </template>
 
 <style lang="scss" scoped>
-// section {
-//   margin-bottom: clampFluid(30, 80);
-// }
+.tile {
+  grid-column: span 12;
+}
 
-// .grid {
-//   margin-top: clampFluid(20, 40);
-// }
+@media (min-width: 520px) {
+  .tile {
+    grid-column: span 6;
+  }
+}
+
+@media (min-width: 1024px) {
+  .tile {
+    grid-column: span 3;
+  }
+}
 </style>

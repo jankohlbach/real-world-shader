@@ -2,6 +2,8 @@
 
 :root {
   // spacings
+  --s-m: #{clampFluid(25, 50)};
+  --s-l: #{clampFluid(50, 100)};
 
   // grid
   --fluid-min: 375;
@@ -17,13 +19,13 @@
 
   // font-sizes
   --fs-tiny: #{clampFluid(14, 16)};
-  --fs-base: #{clampFluid(18, 24)};
-  --fs-1: #{clampFluid(54, 72)};
-  --fs-2: #{clampFluid(44, 60)};
-  --fs-3: #{clampFluid(38, 50)};
-  --fs-4: #{clampFluid(32, 42)};
-  --fs-5: #{clampFluid(26, 34)};
-  --fs-6: #{clampFluid(22, 28)};
+  --fs-base: #{clampFluid(16, 18)};
+  --fs-1: #{clampFluid(40, 56)};
+  --fs-2: #{clampFluid(24, 28)};
+  --fs-3: #{clampFluid(18, 20)};
+  --fs-4: #{clampFluid(16, 18)};
+  --fs-5: #{clampFluid(16, 18)};
+  --fs-6: #{clampFluid(16, 18)};
 
   // font-weights
   --fw-thin: 100;
@@ -46,7 +48,7 @@
 
   // colors
   --c-light: #eeeeee;
-  --c-dark: #222222;
+  --c-dark: #151515;
   --c-accent: #21EBB9;
 
   // animations
@@ -54,5 +56,6 @@
   --ease-in-out-custom: cubic-bezier(0.4, 0, 0.2, 1);
 
   // z-index
+  --zi-canvas: 5000;
   --zi-cursor: 10000;
 }
