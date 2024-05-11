@@ -35,8 +35,28 @@ const { content } = useContent()
 </template>
 
 <style lang="scss" scoped>
+header {
+  display: flex;
+  flex-direction: column;
+  gap: to-rem(36);
+  padding-bottom: var(--s-m);
+  margin-bottom: var(--s-m);
+  border-bottom: 1px solid var(--c-light);
+
+  p {
+    max-width: to-rem(760);
+  }
+}
+
+.grid {
+  margin-top: to-rem(36);
+}
+
 .tile {
   grid-column: span 12;
+  display: flex;
+  flex-direction: column;
+  gap: to-rem(14);
 }
 
 @media (min-width: 520px) {

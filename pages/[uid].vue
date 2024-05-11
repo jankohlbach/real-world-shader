@@ -29,6 +29,23 @@ const effect = getEffectByPath(route.params.uid)
 </template>
 
 <style lang="scss" scoped>
+header {
+  display: flex;
+  flex-direction: column;
+  gap: to-rem(36);
+  padding-bottom: var(--s-m);
+  margin-bottom: var(--s-m);
+  border-bottom: 1px solid var(--c-light);
+
+  a {
+    text-decoration: none;
+  }
+
+  p {
+    max-width: to-rem(760);
+  }
+}
+
 .wrap {
   max-width: 80vmin;
   margin-inline: auto;

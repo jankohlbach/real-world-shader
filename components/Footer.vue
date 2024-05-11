@@ -22,11 +22,15 @@
 
 <style lang="scss" scoped>
 footer {
-  padding-block: var(--s-l);
+  padding-block: var(--s-m);
+  margin-top: var(--s-m);;
+  border-top: 1px solid var(--c-light);
 }
 
 .container {
   display: flex;
+  flex-wrap: wrap;
+  gap: to-rem(25);
   justify-content: space-between;
 }
 
@@ -35,20 +39,18 @@ a {
 }
 
 .child {
+  flex: 1 1 100%;
   display: flex;
-  flex: 1;
   align-items: center;
-  justify-content: center;
+}
+
+.support {
+  order: -1;
 }
 
 .meta > span {
   display: flex;
   gap: var(--s-m);
-  margin-right: auto;
-}
-
-.credits > span {
-  margin-left: auto;
 }
 
 .support-button {
@@ -62,6 +64,29 @@ a {
 @include has-hover {
   a:hover {
     text-decoration: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    flex-wrap: nowrap;
+  }
+
+  .child {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .support {
+    order: initial;
+  }
+
+  .meta > span {
+    margin-right: auto;
+  }
+
+  .credits > span {
+    margin-left: auto;
   }
 }
 </style>
