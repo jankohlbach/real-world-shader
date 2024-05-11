@@ -13,7 +13,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="tile">
+  <div>
     <img
       :src="imageSrc"
       :data-webgl-media="shader ? 'data-webgl-media' : undefined"

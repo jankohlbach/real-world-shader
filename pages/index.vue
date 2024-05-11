@@ -28,7 +28,8 @@ const { content } = useContent()
       </div>
     </section>
     <section class="container">
-      <h2>...</h2>
+      <h2>more to come ...</h2>
+      <br>
       <h3>You have ideas, requests, or a shader you want to contribute? -> <a href="mailto:rws@jankohlbach.com">write me a mail</a> or on socials @jankohlbach</h3>
     </section>
   </div>
@@ -46,6 +47,12 @@ header {
   p {
     max-width: to-rem(760);
   }
+}
+
+section + section {
+  padding-top: var(--s-m);
+  margin-top: var(--s-m);
+  border-top: 1px solid var(--c-light);
 }
 
 .grid {
