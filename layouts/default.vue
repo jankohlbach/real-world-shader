@@ -26,6 +26,8 @@
       </main>
 
       <Footer />
+
+      <PageTransition />
     </div>
   </div>
 </template>
