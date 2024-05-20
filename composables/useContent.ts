@@ -4,20 +4,20 @@ export const useContent = () => {
       groupTitle: 'Distortion Effects',
       effects: [
         {
-          title: 'Effect 1',
-          description: 'This is a description.',
+          title: 'Wave 1',
+          description: '',
           path: 'distortion-001',
           image: '/something.webp'
         },
         {
-          title: 'Effect 2',
-          description: 'This is a description.',
+          title: 'Wave 2',
+          description: '',
           path: 'distortion-002',
           image: '/something.webp'
         },
         {
-          title: 'Effect 3',
-          description: 'This is a description.',
+          title: 'Diagonal',
+          description: '',
           path: 'distortion-003',
           image: '/something.webp'
         }
@@ -27,20 +27,20 @@ export const useContent = () => {
       groupTitle: 'Hover Effects',
       effects: [
         {
-          title: 'Effect 1',
-          description: 'This is a description.',
+          title: 'Noise / Grain',
+          description: '',
           path: 'hover-001',
           image: '/something.webp'
         },
         {
-          title: 'Effect 2',
-          description: 'This is a description.',
+          title: 'Distort',
+          description: '',
           path: 'hover-002',
           image: '/something.webp'
         },
         {
-          title: 'Effect 3',
-          description: 'This is a description.',
+          title: 'Distort + RGB-Shift',
+          description: '',
           path: 'hover-003',
           image: '/something.webp'
         }

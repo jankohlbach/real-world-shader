@@ -7,7 +7,7 @@ const { content } = useContent()
     <header class="container">
       <h1>real world shader</h1>
       <p>
-        This is just a little playground for me. I wanted a place to collect various shader effects that I can actually use in real-world client projects.<br>
+        This is just a little playground for me. I wanted a place to collect various shader effects that I can actually use in real world client projects.<br>
         All of the code of this website is public so you can see how I am doing this and copy it for your projects.<br>
         I also made the shaders directly accessible for you to copy or expand on.
       </p>
