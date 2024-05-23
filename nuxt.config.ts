@@ -27,7 +27,7 @@ export default defineNuxtConfig({
         { property: 'og:locale', content: 'en' }
       ]
     },
-    pageTransition: { name: 'page' }
+    pageTransition: { name: 'page', mode: 'out-in' }
   },
   typescript: {
     typeCheck: true

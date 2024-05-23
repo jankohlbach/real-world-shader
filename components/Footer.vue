@@ -2,8 +2,8 @@
   <footer class="container">
     <div class="child meta">
       <span>
-        <a href="/legal">Legal</a>
-        <a href="/privacy">Privacy</a>
+        <nuxt-link to="/legal">Legal</nuxt-link>
+        <nuxt-link to="/privacy">Privacy</nuxt-link>
         <a href="https://tracking.jnkl.dev/share/r9uHvDLf4b7uG4ql/real-world-shader.vercel.app" target="_blank">Tracking</a>
       </span>
     </div>
