@@ -5,19 +5,19 @@ export const useContent = () => {
       effects: [
         {
           title: 'Wave 1',
-          description: '',
+          description: 'A simple sinus wave applied to the x coordinate in the vertex shader.',
           path: 'distortion-001',
           image: '/something.webp'
         },
         {
           title: 'Wave 2',
-          description: '',
+          description: 'A simple sinus wave applied to the y coordinate in the vertex shader.',
           path: 'distortion-002',
           image: '/something.webp'
         },
         {
           title: 'Diagonal',
-          description: '',
+          description: 'A bulge effect, circular distortion applied to the texture in the fragment shader, animated over time.',
           path: 'distortion-003',
           image: '/something.webp'
         }
@@ -28,19 +28,19 @@ export const useContent = () => {
       effects: [
         {
           title: 'Noise / Grain',
-          description: '',
+          description: 'A noise effect with a clearer circle around the mouse position.',
           path: 'hover-001',
           image: '/something.webp'
         },
         {
-          title: 'Distort',
-          description: '',
+          title: 'Bulge / Distort',
+          description: 'A bulge effect, circular distortion applied to the texture in the fragment shader, based on mouse position.',
           path: 'hover-002',
           image: '/something.webp'
         },
         {
-          title: 'Distort + RGB-Shift',
-          description: '',
+          title: 'Bulge / Distort + RGB-Shift',
+          description: 'A bulge effect, circular distortion applied to the texture in the fragment shader plus a rgb-shift, based on mouse position.',
           path: 'hover-003',
           image: '/something.webp'
         }
