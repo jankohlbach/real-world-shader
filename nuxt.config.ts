@@ -22,7 +22,7 @@ export default defineNuxtConfig({
         { name: 'description', content: 'a collection of shader effects that are actually useful in real world client projects' },
         { property: 'og:title', content: 'real world shader' },
         { property: 'og:description', content: 'a collection of shader effects that are actually useful in real world client projects' },
-        { property: 'og:image', content: 'https://real-world-shader.jankohlbach.comp/og-image.jpg' },
+        { property: 'og:image', content: 'https://real-world-shader.jankohlbach.com/og-image.jpg' },
         { property: 'og:type', content: 'website' },
         { property: 'og:locale', content: 'en' }
       ]
