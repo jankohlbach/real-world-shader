@@ -2,6 +2,9 @@ import glsl from 'vite-plugin-glsl'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  site: {
+    url: 'https://real-world-shader.jankohlbach.com'
+  },
   app: {
     head: {
       htmlAttrs: {
@@ -45,5 +48,11 @@ export default defineNuxtConfig({
     },
     plugins: [glsl()]
   },
-  modules: ['nuxt-simple-robots']
+  modules: ['nuxt-simple-robots', '@nuxtjs/sitemap'],
+  nitro: {
+    prerender: {
+      crawlLinks: true,
+      routes: ['/', '/sitemap.xml']
+    }
+  }
 })
