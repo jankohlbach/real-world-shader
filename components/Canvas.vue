@@ -174,7 +174,9 @@ onMounted(() => {
   nuxtApp.hook('page:transition:finish', () => {
     window.scrollTo(0, 0)
     clearMediaStore()
-    setMediaStore(0)
+    setTimeout(() => {
+      setMediaStore(0)
+    }, 100)
   })
 
   // create intersection observer to only render in view elements
@@ -290,7 +292,7 @@ onMounted(() => {
 canvas {
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: var(--zi-canvas);
   width: 100%;
   height: 100%;
   opacity: 1;

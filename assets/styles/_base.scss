@@ -97,8 +97,11 @@ body {
 // grid
 .container {
   max-width: var(--container-max-width);
-  padding-inline: var(--grid-margin);
   margin-inline: auto;
+
+  &.padding {
+    padding-inline: var(--grid-margin);
+  }
 }
 
 .grid {
