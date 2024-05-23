@@ -15,14 +15,14 @@ export default defineNuxtConfig({
         { rel: 'manifest', href: '/manifest.webmanifest' }
       ],
       script: [
-        { async: true, src: 'https://tracking.jnkl.dev/script.js', 'data-do-not-track': 'true', 'data-website-id': 'cb5b5e20-08da-4ab4-9207-6e3bd7a7d7df', 'data-domains': 'real-world-shader.vercel.app' }
+        { async: true, src: 'https://tracking.jnkl.dev/script.js', 'data-do-not-track': 'true', 'data-website-id': 'cb5b5e20-08da-4ab4-9207-6e3bd7a7d7df', 'data-domains': 'real-world-shader.jankohlbach.com' }
       ],
       meta: [
         { name: 'theme-color', content: '#000000' },
         { name: 'description', content: 'a collection of shader effects that are actually useful in real world client projects' },
         { property: 'og:title', content: 'real world shader' },
         { property: 'og:description', content: 'a collection of shader effects that are actually useful in real world client projects' },
-        // { property: 'og:image', content: 'https://real-world-shader.vercel.app/og-image.jpg' },
+        { property: 'og:image', content: 'https://real-world-shader.jankohlbach.comp/og-image.jpg' },
         { property: 'og:type', content: 'website' },
         { property: 'og:locale', content: 'en' }
       ]
