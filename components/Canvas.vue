@@ -137,7 +137,7 @@ const setMediaStore = (scrollY: number) => {
 
     imageMesh.scale.set(bounds.width, bounds.height, 1)
 
-    if (!(bounds.top >= 0 && bounds.bottom <= window.innerHeight)) {
+    if (!(bounds.top >= 0 && bounds.top <= window.innerHeight)) {
       imageMesh.position.y = 2 * window.innerHeight
     }
 
@@ -151,7 +151,7 @@ const setMediaStore = (scrollY: number) => {
       height: bounds.height,
       top: bounds.top + scrollY,
       left: bounds.left,
-      isInView: bounds.top >= 0 && bounds.bottom <= window.innerHeight,
+      isInView: bounds.top >= 0 && bounds.top <= window.innerHeight,
       mouseEnter: 0,
       mouseOverPos: {
         current: {
@@ -250,6 +250,8 @@ onMounted(() => {
         object.material.uniforms.uMouseOverPos.value.x = object.mouseOverPos.current.x
         object.material.uniforms.uMouseOverPos.value.y = object.mouseOverPos.current.y
         object.material.uniforms.uMouseEnter.value = object.mouseEnter
+      } else {
+        object.mesh.position.y = 2 * window.innerHeight
       }
     })
 
@@ -274,6 +276,7 @@ onMounted(() => {
       object.height = bounds.height
       object.top = bounds.top + scroll.value.scrollY
       object.left = bounds.left
+      object.isInView = bounds.top >= 0 && bounds.top <= window.innerHeight
       object.material.uniforms.uTextureSize.value.x = (object.media as HTMLImageElement).naturalWidth
       object.material.uniforms.uTextureSize.value.y = (object.media as HTMLImageElement).naturalHeight
       object.material.uniforms.uQuadSize.value.x = bounds.width
