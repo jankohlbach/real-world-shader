@@ -83,6 +83,10 @@ const handleMouseLeave = (index: number) => {
     mediaStore[index],
     { mouseEnter: 0, duration: 0.6, ease: CustomEase.create('custom', '0.4, 0, 0.2, 1') }
   )
+  gsap.to(
+    mediaStore[index].mouseOverPos.target,
+    { x: 0.5, y: 0.5, duration: 0.6, ease: CustomEase.create('custom', '0.4, 0, 0.2, 1') }
+  )
 }
 
 const clearMediaStore = () => {
