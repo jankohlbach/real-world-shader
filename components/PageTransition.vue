@@ -7,7 +7,7 @@
   position: fixed;
   inset: 0;
   z-index: var(--zi-page-transition);
-  background-color: var(--c-dark);
+  background-color: var(--c-background);
   opacity: 0;
   pointer-events: none;
   transition: all 0.5s;
