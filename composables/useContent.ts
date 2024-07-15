@@ -20,6 +20,12 @@ export const useContent = () => {
           description: 'A bulge effect, circular distortion applied to the texture in the fragment shader, animated over time.',
           path: 'distortion-003',
           image: '/something.webp'
+        },
+        {
+          title: 'Swirl',
+          description: 'A swirl effect, circular distortion, animated over time.',
+          path: 'distortion-004',
+          image: '/something.webp'
         }
       ]
     },
