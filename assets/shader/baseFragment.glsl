@@ -16,11 +16,28 @@ in vec2 vUvCover;
 
 out vec4 outColor;
 
+float calcDistance(vec2 uv) {
+  vec2 positionInQuadrant = abs(uv * 2.0 - 1.0);
+  vec2 extend = vec2(uQuadSize) / 2.0;
+  vec2 coords = positionInQuadrant * (extend + uBorderRadius);
+  vec2 delta = max(coords - extend, 0.0);
+
+  return length(delta);
+}
+
 
 void main() {
   // texture
   vec3 texture = vec3(texture(uTexture, vUvCover));
 
+  // border-radius
+  float alpha = 1.0;
+
+  if (uBorderRadius > 0.0) {
+    float dist = calcDistance(vUv);
+    alpha = 1.0 - (dist - (uBorderRadius - 1.0));
+  }
+
   // output
-  outColor = vec4(texture, 1.0);
+  outColor = vec4(texture, alpha);
 }

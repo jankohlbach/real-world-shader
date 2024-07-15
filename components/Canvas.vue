@@ -83,6 +83,10 @@ const handleMouseLeave = (index: number) => {
     mediaStore[index],
     { mouseEnter: 0, duration: 0.6, ease: CustomEase.create('custom', '0.4, 0, 0.2, 1') }
   )
+  gsap.to(
+    mediaStore[index].mouseOverPos.target,
+    { x: 0.5, y: 0.5, duration: 0.6, ease: CustomEase.create('custom', '0.4, 0, 0.2, 1') }
+  )
 }
 
 const clearMediaStore = () => {
@@ -137,7 +141,7 @@ const setMediaStore = (scrollY: number) => {
 
     imageMesh.scale.set(bounds.width, bounds.height, 1)
 
-    if (!(bounds.top >= 0 && bounds.bottom <= window.innerHeight)) {
+    if (!(bounds.top >= 0 && bounds.top <= window.innerHeight)) {
       imageMesh.position.y = 2 * window.innerHeight
     }
 
@@ -151,7 +155,7 @@ const setMediaStore = (scrollY: number) => {
       height: bounds.height,
       top: bounds.top + scrollY,
       left: bounds.left,
-      isInView: bounds.top >= 0 && bounds.bottom <= window.innerHeight,
+      isInView: bounds.top >= 0 && bounds.top <= window.innerHeight,
       mouseEnter: 0,
       mouseOverPos: {
         current: {
@@ -250,6 +254,8 @@ onMounted(() => {
         object.material.uniforms.uMouseOverPos.value.x = object.mouseOverPos.current.x
         object.material.uniforms.uMouseOverPos.value.y = object.mouseOverPos.current.y
         object.material.uniforms.uMouseEnter.value = object.mouseEnter
+      } else {
+        object.mesh.position.y = 2 * window.innerHeight
       }
     })
 
@@ -274,6 +280,7 @@ onMounted(() => {
       object.height = bounds.height
       object.top = bounds.top + scroll.value.scrollY
       object.left = bounds.left
+      object.isInView = bounds.top >= 0 && bounds.top <= window.innerHeight
       object.material.uniforms.uTextureSize.value.x = (object.media as HTMLImageElement).naturalWidth
       object.material.uniforms.uTextureSize.value.y = (object.media as HTMLImageElement).naturalHeight
       object.material.uniforms.uQuadSize.value.x = bounds.width
