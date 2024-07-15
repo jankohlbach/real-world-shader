@@ -45,9 +45,15 @@ export const useContent = () => {
           image: '/something.webp'
         },
         {
+          title: 'RGB-Shift',
+          description: 'A rgb-shift effect, based on mouse position.',
+          path: 'hover-003',
+          image: '/something.webp'
+        },
+        {
           title: 'Bulge / Distort + RGB-Shift',
           description: 'A bulge effect, circular distortion applied to the texture in the fragment shader plus a rgb-shift, based on mouse position.',
-          path: 'hover-003',
+          path: 'hover-004',
           image: '/something.webp'
         }
       ]

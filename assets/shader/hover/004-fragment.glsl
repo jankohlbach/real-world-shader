@@ -1,7 +1,5 @@
 precision highp float;
 
-float PI = 3.141592653589793;
-
 uniform vec2 uResolution; // in pixel
 uniform float uTime; // in s
 uniform vec2 uCursor; // 0 (left) 0 (top) / 1 (right) 1 (bottom)
@@ -32,9 +30,9 @@ void main() {
   );
 
   // distort rgb channels separately
-  float r = texture(uTexture, texCoords += mix(0.0, (cos(uMouseOverPos.x * PI) * cos(uMouseOverPos.y * PI) * 0.04), uMouseEnter)).x;
-  float g = texture(uTexture, texCoords += mix(0.0, (cos(uMouseOverPos.x * PI) * cos(uMouseOverPos.y * PI) * 0.05), uMouseEnter)).y;
-  float b = texture(uTexture, texCoords += mix(0.0, (cos(uMouseOverPos.x * PI) * cos(uMouseOverPos.y * PI) * 0.06), uMouseEnter)).z;
+  float r = texture(uTexture, texCoords += mix(0.0, (circle * 0.02), uMouseEnter)).x;
+  float g = texture(uTexture, texCoords += mix(0.0, (circle * 0.025), uMouseEnter)).y;
+  float b = texture(uTexture, texCoords += mix(0.0, (circle * 0.03), uMouseEnter)).z;
 
   // output
   outColor = vec4(r, g, b, 1.0);
