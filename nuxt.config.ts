@@ -48,7 +48,7 @@ export default defineNuxtConfig({
     },
     plugins: [glsl()]
   },
-  modules: ['nuxt-simple-robots', '@nuxtjs/sitemap'],
+  modules: ['@nuxtjs/robots', '@nuxtjs/sitemap'],
   nitro: {
     prerender: {
       crawlLinks: true,
