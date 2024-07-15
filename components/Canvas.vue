@@ -8,7 +8,8 @@ import baseFragment from '~/assets/shader/baseFragment.glsl'
 
 const shaderFiles = import.meta.glob([
   '~/assets/shader/distortion/*.glsl',
-  '~/assets/shader/hover/*.glsl'
+  '~/assets/shader/hover/*.glsl',
+  '~/assets/shader/scroll/*.glsl'
 ], { eager: true })
 
 const nuxtApp = useNuxtApp()
@@ -48,8 +49,8 @@ let material: THREE.ShaderMaterial
 
 const findShader = (name: string[]) => {
   return {
-    vertex: (shaderFiles[`/assets/shader/${name[0]}/${name[1]}-vertex.glsl`] as any).default,
-    fragment: (shaderFiles[`/assets/shader/${name[0]}/${name[1]}-fragment.glsl`] as any).default
+    vertex: (shaderFiles[`/assets/shader/${name[0]}/${name[1]}-vertex.glsl`] as any)?.default,
+    fragment: (shaderFiles[`/assets/shader/${name[0]}/${name[1]}-fragment.glsl`] as any)?.default
   }
 }
 

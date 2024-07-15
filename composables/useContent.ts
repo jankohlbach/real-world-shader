@@ -45,6 +45,17 @@ export const useContent = () => {
           image: '/something.webp'
         }
       ]
+    },
+    {
+      groupTitle: 'On-Scroll Effects',
+      effects: [
+        {
+          title: 'Bulge',
+          description: 'A bulge effect, a curve applied based on scroll and scroll speed.',
+          path: 'scroll-001',
+          image: '/something.webp'
+        }
+      ]
     }
   ]))
 
