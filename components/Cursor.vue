@@ -49,6 +49,8 @@ onMounted(() => {
 <style lang="scss" scoped>
 .cursor {
   position: fixed;
+  top: 0;
+  left: 0;
   z-index: var(--zi-cursor);
   display: none;
   width: to-rem(5);
