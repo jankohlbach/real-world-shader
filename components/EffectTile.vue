@@ -3,12 +3,12 @@ defineProps({
   imageSrc: {
     type: String,
     required: true,
-    default: '/texture.jpg'
+    default: '/texture.jpg',
   },
   shader: {
     type: String,
-    default: null
-  }
+    default: null,
+  },
 })
 </script>
 

@@ -2,15 +2,21 @@
 defineProps({
   path: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 })
 </script>
 
 <template>
   <div>
-    <a :href="`https://github.com/jankohlbach/real-world-shader/blob/main/assets/shader/${path.replace('-', '/')}-vertex.glsl`" target="_blank">vertex shader -></a>
-    <a :href="`https://github.com/jankohlbach/real-world-shader/blob/main/assets/shader/${path.replace('-', '/')}-fragment.glsl`" target="_blank">fragment shader -></a>
+    <a
+      :href="`https://github.com/jankohlbach/real-world-shader/blob/main/assets/shader/${path.replace('-', '/')}-vertex.glsl`"
+      target="_blank"
+    >vertex shader -></a>
+    <a
+      :href="`https://github.com/jankohlbach/real-world-shader/blob/main/assets/shader/${path.replace('-', '/')}-fragment.glsl`"
+      target="_blank"
+    >fragment shader -></a>
   </div>
 </template>
 

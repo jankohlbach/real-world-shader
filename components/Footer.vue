@@ -4,17 +4,27 @@
       <span>
         <nuxt-link to="/legal">Legal</nuxt-link>
         <nuxt-link to="/privacy">Privacy</nuxt-link>
-        <a href="https://tracking.jnkl.dev/share/r9uHvDLf4b7uG4ql/real-world-shader.vercel.app" target="_blank">Tracking</a>
+        <a
+          href="https://tracking.jnkl.dev/share/r9uHvDLf4b7uG4ql/real-world-shader.vercel.app"
+          target="_blank"
+        >Tracking</a>
       </span>
     </div>
     <div class="child support">
       <span>
-        <a class="support-button" href="https://buymeacoffee.com/jankohlbach" target="_blank">🍺 support me with a beer</a>
+        <a
+          class="support-button"
+          href="https://buymeacoffee.com/jankohlbach"
+          target="_blank"
+        >🍺 support me with a beer</a>
       </span>
     </div>
     <div class="child credits">
       <span>
-        made by <a href="https://jankohlbach.com" target="_blank">Jan</a>
+        made by <a
+          href="https://jankohlbach.com"
+          target="_blank"
+        >Jan</a>
       </span>
     </div>
   </footer>

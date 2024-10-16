@@ -1,15 +1,17 @@
-import { PerspectiveCamera, OrthographicCamera, WebGLRenderer } from 'three'
-import { EffectComposer } from 'three/examples/jsm/Addons.js'
+import type { OrthographicCamera, WebGLRenderer } from 'three'
+import type { EffectComposer } from 'three/examples/jsm/Addons.js'
+
+import { PerspectiveCamera } from 'three'
 
 export const resizeThreeCanvas = ({
   camera,
   fov = null,
   renderer,
-  effectComposer = null
+  effectComposer = null,
 }: {
-  camera: PerspectiveCamera | OrthographicCamera,
-  fov?: number | null,
-  renderer: WebGLRenderer,
+  camera: PerspectiveCamera | OrthographicCamera
+  fov?: number | null
+  renderer: WebGLRenderer
   effectComposer?: EffectComposer | null
 }) => {
   if (camera instanceof PerspectiveCamera) {

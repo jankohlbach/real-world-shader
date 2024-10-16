@@ -1,7 +1,7 @@
 export const useCursor = () => {
   const cursorPos = useState('cursorPos', () => ({
     current: { x: 0.5, y: 0.5 },
-    target: { x: 0.5, y: 0.5 }
+    target: { x: 0.5, y: 0.5 },
   }))
 
   const setCursorPosCurrent = (x: number, y: number) => {
@@ -17,6 +17,6 @@ export const useCursor = () => {
   return {
     cursorPos,
     setCursorPosCurrent,
-    setCursorPosTarget
+    setCursorPosTarget,
   }
 }

@@ -19,8 +19,8 @@ onMounted(() => {
     setCursorPosCurrent(x, y)
 
     const delta = Math.sqrt(
-      ((cursorPos.value.target.x - cursorPos.value.current.x) ** 2) +
-      ((cursorPos.value.target.y - cursorPos.value.current.y) ** 2)
+      ((cursorPos.value.target.x - cursorPos.value.current.x) ** 2)
+      + ((cursorPos.value.target.y - cursorPos.value.current.y) ** 2),
     )
 
     if (delta < 0.001 && raf) {

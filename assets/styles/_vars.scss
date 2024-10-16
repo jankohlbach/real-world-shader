@@ -2,30 +2,30 @@
 
 :root {
   // spacings
-  --s-m: #{clampFluid(25, 50)};
-  --s-l: #{clampFluid(50, 100)};
+  --s-m: #{clamp-fluid(25, 50)};
+  --s-l: #{clamp-fluid(50, 100)};
 
   // grid
   --fluid-min: 375;
   --fluid-max: 1720;
   --container-max-width: #{to-rem(1920)};
   --grid-margin: #{to-rem(20)};
-  --grid-gutter: #{clampFluid(10, 60)};
+  --grid-gutter: #{clamp-fluid(10, 60)};
   --grid-max-width: calc(var(--container-max-width) - var(--grid-margin) * 2);
   --grid-columns: 12;
 
   // fonts
-  --ff-primary: 'Erstling', 'Open Sans', 'Fira Sans', 'Source Sans Pro', 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  --ff-primary: 'Erstling', 'Helvetica', 'Arial', sans-serif;
 
   // font-sizes
-  --fs-tiny: #{clampFluid(14, 16)};
-  --fs-base: #{clampFluid(16, 18)};
-  --fs-1: #{clampFluid(40, 56)};
-  --fs-2: #{clampFluid(24, 28)};
-  --fs-3: #{clampFluid(18, 20)};
-  --fs-4: #{clampFluid(16, 18)};
-  --fs-5: #{clampFluid(16, 18)};
-  --fs-6: #{clampFluid(16, 18)};
+  --fs-tiny: #{clamp-fluid(14, 16)};
+  --fs-base: #{clamp-fluid(16, 18)};
+  --fs-1: #{clamp-fluid(40, 56)};
+  --fs-2: #{clamp-fluid(24, 28)};
+  --fs-3: #{clamp-fluid(18, 20)};
+  --fs-4: #{clamp-fluid(16, 18)};
+  --fs-5: #{clamp-fluid(16, 18)};
+  --fs-6: #{clamp-fluid(16, 18)};
 
   // font-weights
   --fw-thin: 100;
