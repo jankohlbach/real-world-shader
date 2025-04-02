@@ -20,7 +20,7 @@ const effect = getEffectByPath(route.params.uid)
     <section class="container">
       <div class="wrap">
         <EffectTile
-          image-src="/something.webp"
+          :image-src="effect.image"
           :shader="effect.path.replace('-', '/')"
         />
       </div>

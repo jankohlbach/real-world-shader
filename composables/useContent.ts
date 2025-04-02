@@ -66,6 +66,12 @@ export const useContent = () => {
           description: 'A bulge effect, a curve applied based on scroll and scroll speed.',
           path: 'scroll-001',
           image: '/something.webp'
+        },
+        {
+          title: 'Blur',
+          description: 'A blur applied based on scroll and scroll speed.',
+          path: 'scroll-002',
+          image: '/something.webp'
         }
       ]
     }
