@@ -16,9 +16,21 @@
           <p>Jan Kohlbach<br>Kantstraße 6<br>76137 Karlsruhe</p>
           <h3>Contact</h3>
           <p>
-            Telephone: <a href="tel:+4917643675791" target="_blank" rel="noopener noreferrer">+49 176 43675791</a><br>
-            E-Mail: <a href="mailto:legal@jankohlbach.com" target="_self" rel="noopener noreferrer">legal@jankohlbach.com</a><br>
-            Internet: <a href="https://jankohlbach.com" target="_blank" rel="noopener noreferrer">jankohlbach.com</a>
+            Telephone: <a
+              href="tel:+4917643675791"
+              target="_blank"
+              rel="noopener noreferrer"
+            >+49 176 43675791</a><br>
+            E-Mail: <a
+              href="mailto:legal@jankohlbach.com"
+              target="_self"
+              rel="noopener noreferrer"
+            >legal@jankohlbach.com</a><br>
+            Internet: <a
+              href="https://jankohlbach.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >jankohlbach.com</a>
           </p>
           <h3>VAT number</h3>
           <p>VAT identification number according to Section 27a Value Added Tax Act:<br>DE339535130</p>

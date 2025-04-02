@@ -9,7 +9,7 @@ import baseFragment from '~/assets/shader/baseFragment.glsl'
 const shaderFiles = import.meta.glob([
   '~/assets/shader/distortion/*.glsl',
   '~/assets/shader/hover/*.glsl',
-  '~/assets/shader/scroll/*.glsl'
+  '~/assets/shader/scroll/*.glsl',
 ], { eager: true })
 
 const nuxtApp = useNuxtApp()
@@ -22,22 +22,22 @@ const CAMERA_POS = 500
 
 let observer: IntersectionObserver
 let mediaStore: {
-  media: HTMLImageElement,
-  material: THREE.ShaderMaterial,
-  mesh: THREE.Mesh,
-  width: number,
-  height: number,
-  top: number,
-  left: number,
-  isInView: boolean,
-  mouseEnter: number,
+  media: HTMLImageElement
+  material: THREE.ShaderMaterial
+  mesh: THREE.Mesh
+  width: number
+  height: number
+  top: number
+  left: number
+  isInView: boolean
+  mouseEnter: number
   mouseOverPos: {
     current: {
-      x: number,
+      x: number
       y: number
-    },
+    }
     target: {
-      x: number,
+      x: number
       y: number
     }
   }
@@ -49,8 +49,8 @@ let material: THREE.ShaderMaterial
 
 const findShader = (name: string[]) => {
   return {
-    vertex: (shaderFiles[`/assets/shader/${name[0]}/${name[1]}-vertex.glsl`] as any)?.default,
-    fragment: (shaderFiles[`/assets/shader/${name[0]}/${name[1]}-fragment.glsl`] as any)?.default
+    vertex: (shaderFiles[`/assets/shader/${name[0]}/${name[1]}-vertex.glsl`] as { default: string }).default,
+    fragment: (shaderFiles[`/assets/shader/${name[0]}/${name[1]}-fragment.glsl`] as { default: string }).default,
   }
 }
 
@@ -66,11 +66,11 @@ const setPositions = () => {
 const handleMouseEnter = (index: number) => {
   gsap.to(
     mediaStore[index],
-    { mouseEnter: 1, duration: 0.6, ease: CustomEase.create('custom', '0.4, 0, 0.2, 1') }
+    { mouseEnter: 1, duration: 0.6, ease: CustomEase.create('custom', '0.4, 0, 0.2, 1') },
   )
 }
 
-const handleMousePos = (e: any, index: number) => {
+const handleMousePos = (e: MouseEvent, index: number) => {
   const bounds = mediaStore[index].media.getBoundingClientRect()
   const x = e.offsetX / bounds.width
   const y = e.offsetY / bounds.height
@@ -82,11 +82,11 @@ const handleMousePos = (e: any, index: number) => {
 const handleMouseLeave = (index: number) => {
   gsap.to(
     mediaStore[index],
-    { mouseEnter: 0, duration: 0.6, ease: CustomEase.create('custom', '0.4, 0, 0.2, 1') }
+    { mouseEnter: 0, duration: 0.6, ease: CustomEase.create('custom', '0.4, 0, 0.2, 1') },
   )
   gsap.to(
     mediaStore[index].mouseOverPos.target,
-    { x: 0.5, y: 0.5, duration: 0.6, ease: CustomEase.create('custom', '0.4, 0, 0.2, 1') }
+    { x: 0.5, y: 0.5, duration: 0.6, ease: CustomEase.create('custom', '0.4, 0, 0.2, 1') },
   )
 }
 
@@ -161,13 +161,13 @@ const setMediaStore = (scrollY: number) => {
       mouseOverPos: {
         current: {
           x: 0.5,
-          y: 0.5
+          y: 0.5,
         },
         target: {
           x: 0.5,
-          y: 0.5
-        }
-      }
+          y: 0.5,
+        },
+      },
     }
   })
 }
@@ -195,7 +195,7 @@ onMounted(() => {
         }
       })
     },
-    { rootMargin: '20px 0px 20px 0px' }
+    { rootMargin: '20px 0px 20px 0px' },
   )
 
   // scene
@@ -220,11 +220,11 @@ onMounted(() => {
       uQuadSize: { value: new THREE.Vector2(100, 100) },
       uBorderRadius: { value: 0 },
       uMouseEnter: { value: 0 },
-      uMouseOverPos: { value: new THREE.Vector2(0.5, 0.5) }
+      uMouseOverPos: { value: new THREE.Vector2(0.5, 0.5) },
     },
     vertexShader: baseVertex,
     fragmentShader: baseFragment,
-    glslVersion: THREE.GLSL3
+    glslVersion: THREE.GLSL3,
   })
 
   // media details

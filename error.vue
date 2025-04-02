@@ -11,7 +11,13 @@
       </header>
       <section class="container">
         <div class="wrap">
-          <video src="/404.mp4" muted loop autoplay playsinline />
+          <video
+            src="/404.mp4"
+            muted
+            loop
+            autoplay
+            playsinline
+          />
         </div>
       </section>
     </div>

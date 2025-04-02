@@ -12,10 +12,18 @@ const { content } = useContent()
         I also made the shaders directly accessible for you to copy or expand on.
       </p>
     </header>
-    <section v-for="effectGroup, i in content" :key="i" class="container">
+    <section
+      v-for="effectGroup, i in content"
+      :key="i"
+      class="container"
+    >
       <h2>{{ effectGroup.groupTitle }}</h2>
       <div class="grid">
-        <div v-for="effect, j in effectGroup.effects" :key="j" class="tile">
+        <div
+          v-for="effect, j in effectGroup.effects"
+          :key="j"
+          class="tile"
+        >
           <nuxt-link :to="`/${effect.path}`">
             <EffectTile
               :image-src="effect.image"

@@ -23,9 +23,21 @@
           <p>The party responsible for this website (the „controller“) for purposes of data protection law is:</p>
           <p>Jan Kohlbach<br>Kantstraße 6<br>76137 Karlsruhe</p>
           <p>
-            Telephone: <a href="tel:+4917643675791" target="_blank" rel="noopener noreferrer">+49 176 43675791</a><br>
-            E-Mail: <a href="mailto:privacy@jankohlbach.com" target="_self" rel="noopener noreferrer">privacy@jankohlbach.com</a><br>
-            Internet: <a href="http://jankohlbach.com" target="_blank" rel="noopener noreferrer">jankohlbach.com</a>
+            Telephone: <a
+              href="tel:+4917643675791"
+              target="_blank"
+              rel="noopener noreferrer"
+            >+49 176 43675791</a><br>
+            E-Mail: <a
+              href="mailto:privacy@jankohlbach.com"
+              target="_self"
+              rel="noopener noreferrer"
+            >privacy@jankohlbach.com</a><br>
+            Internet: <a
+              href="http://jankohlbach.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >jankohlbach.com</a>
           </p>
           <p>The controller’s data protection officer is:</p>
           <p>Jan Kohlbach</p>
@@ -57,11 +69,33 @@
           <p>Initially, this data includes such things as your IP address, the date and time of your visit, and the page visited. If you are logged into your user account on that network, however, the network operator might assign the information collected about your visit to our site to your personal account. If you interact by clicking Like, Share, etc., this information can be stored your personal user account and possibly posted on the respective network. To prevent this, you need to log out of your social media account before clicking on the graphic. The various social media networks also offer settings that you can configure accordingly.</p>
           <p>The following social networks are integrated into our site by linked graphics:</p>
           <ul>
-            <li><a href="https://buymeacoffee.com/privacy-policy" target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a></li>
+            <li>
+              <a
+                href="https://buymeacoffee.com/privacy-policy"
+                target="_blank"
+                rel="noopener noreferrer"
+              >Buy Me a Coffee</a>
+            </li>
           </ul>
           <h4>Umami</h4>
-          <p>We use <a href="https://umami.is/" target="_blank" rel="noopener noreferrer">Umami</a>, an open-source analytics tool, to collect non-personal information about your visit to our website. Umami helps us understand user interactions, such as page views and clicks, to improve our website's performance and user experience. The collected data is anonymized and does not include personally identifiable information. Umami is designed with privacy in mind, and we are committed to complying with applicable data protection regulations, including the General Data Protection Regulation (GDPR). By using our website, you consent to the processing of data by Umami for the purposes outlined in our privacy policy.<br>We exclusively host umami on our own servers, ensuring that all analytics data remains with us and is not shared with any third parties.<br></p>
-          <p><a href="https://www.xn--generator-datenschutzerklrung-pqc.de/" target="_blank" rel="noopener noreferrer">Model Data Protection Statement</a> for <a href="https://www.ratgeberrecht.eu/" target="_blank" rel="noopener noreferrer">Anwaltskanzlei Weiß &amp; Partner</a></p>
+          <p>
+            We use <a
+              href="https://umami.is/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >Umami</a>, an open-source analytics tool, to collect non-personal information about your visit to our website. Umami helps us understand user interactions, such as page views and clicks, to improve our website's performance and user experience. The collected data is anonymized and does not include personally identifiable information. Umami is designed with privacy in mind, and we are committed to complying with applicable data protection regulations, including the General Data Protection Regulation (GDPR). By using our website, you consent to the processing of data by Umami for the purposes outlined in our privacy policy.<br>We exclusively host umami on our own servers, ensuring that all analytics data remains with us and is not shared with any third parties.<br>
+          </p>
+          <p>
+            <a
+              href="https://www.xn--generator-datenschutzerklrung-pqc.de/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >Model Data Protection Statement</a> for <a
+              href="https://www.ratgeberrecht.eu/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >Anwaltskanzlei Weiß &amp; Partner</a>
+          </p>
         </div>
       </div>
     </section>
