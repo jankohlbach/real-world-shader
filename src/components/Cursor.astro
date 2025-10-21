@@ -1,0 +1,125 @@
+<script>
+  import { lerp, hasHover } from '../scripts/utils';
+
+  const cursor: HTMLElement | null =
+    document.querySelector('[data-js="cursor"]');
+  let hoverTrigger: NodeList | null = null;
+
+  let raf: number | null;
+
+  const cursorPos = {
+    current: { x: 0.5, y: 0.5 },
+    target: { x: 0.5, y: 0.5 },
+  };
+
+  const setCursorPosCurrent = (x: number, y: number) => {
+    cursorPos.current.x = x;
+    cursorPos.current.y = y;
+
+    cursor?.style.setProperty('--cursor-x', x.toString());
+    cursor?.style.setProperty('--cursor-y', y.toString());
+  };
+
+  const setCursorPosTarget = (mouseX: number, mouseY: number) => {
+    cursorPos.target.x = mouseX / window.innerWidth;
+    cursorPos.target.y = mouseY / window.innerHeight;
+  };
+
+  const calcLerp = () => {
+    const x = lerp(cursorPos.current.x, cursorPos.target.x, 0.1);
+    const y = lerp(cursorPos.current.y, cursorPos.target.y, 0.1);
+
+    setCursorPosCurrent(x, y);
+
+    const delta = Math.sqrt(
+      (cursorPos.target.x - cursorPos.current.x) ** 2 +
+        (cursorPos.target.y - cursorPos.current.y) ** 2,
+    );
+
+    if (delta < 0.001 && raf) {
+      cancelAnimationFrame(raf);
+      raf = null;
+      return;
+    }
+
+    raf = requestAnimationFrame(calcLerp);
+  };
+
+  window.addEventListener('mousemove', (event) => {
+    setCursorPosTarget(event.clientX, event.clientY);
+
+    if (!raf && hasHover()) {
+      cursor?.classList.add('is-active');
+      raf = requestAnimationFrame(calcLerp);
+    }
+  });
+
+  window.addEventListener('load', () => {
+    hoverTrigger = document.querySelectorAll('[data-cursor], a, button');
+
+    hoverTrigger?.forEach((trigger) => {
+      trigger.addEventListener('mouseenter', () => {
+        cursor?.classList.add('is-hover');
+        cursor?.classList.add(
+          (trigger as HTMLElement).dataset.cursorAction || 'hover-default',
+        );
+      });
+      trigger.addEventListener('mouseleave', () => {
+        cursor?.classList.remove('is-hover');
+        cursor?.classList.remove(
+          (trigger as HTMLElement).dataset.cursorAction || 'hover-default',
+        );
+      });
+    });
+  });
+</script>
+
+<div class="cursor" data-js="cursor" aria-hidden="true">
+  <div class="cursor-inner"></div>
+</div>
+
+<style lang="scss">
+  .cursor {
+    position: fixed;
+    z-index: var(--zi-cursor);
+    display: none;
+    width: to-rem(12);
+    height: to-rem(12);
+    opacity: 0;
+    user-select: none;
+    pointer-events: none;
+    transform: translate3d(
+      calc((100vw * var(--cursor-x) - 50%) + to-rem(24)),
+      calc((100vh * var(--cursor-y) - 50%) + to-rem(24)),
+      0
+    );
+    transition: opacity 0.4s var(--ease-smooth);
+
+    &.is-active {
+      opacity: 1;
+    }
+
+    &.is-hover {
+      .cursor-inner {
+        background-color: var(--c-light);
+        transform: scale(0.5);
+      }
+    }
+
+    @include has-hover {
+      display: block;
+    }
+  }
+
+  .cursor-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    color: var(--c-light);
+    background-color: var(--c-dark);
+    border: 1px solid var(--c-dark);
+    transition:
+      transform 0.4s var(--ease-smooth),
+      background-color 0.4s var(--ease-smooth);
+  }
+</style>

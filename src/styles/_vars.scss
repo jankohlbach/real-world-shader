@@ -1,0 +1,64 @@
+@use 'functions' as *;
+
+:root {
+  // spacings
+
+  // grid
+  --fluid-min: 375;
+  --fluid-max: 1720;
+  --container-max-width: #{to-rem(1920)};
+  --grid-margin: #{to-rem(20)};
+  --grid-gutter: #{clamp-fluid(10, 20)};
+  --grid-max-width: calc(var(--container-max-width) - var(--grid-margin) * 2);
+  --grid-columns: 12;
+
+  // fonts
+  --ff-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  --ff-secondary: 'Georgia', 'Times New Roman', serif;
+
+  // font-sizes
+  --fs-base: #{clamp-fluid(18, 24)};
+  --fs-1: #{clamp-fluid(54, 72)};
+  --fs-2: #{clamp-fluid(44, 60)};
+  --fs-3: #{clamp-fluid(38, 50)};
+  --fs-4: #{clamp-fluid(32, 42)};
+  --fs-5: #{clamp-fluid(26, 34)};
+  --fs-6: #{clamp-fluid(22, 28)};
+
+  // font-weights
+  --fw-thin: 100;
+  --fw-hairline: var(--fw-thin);
+  --fw-xlight: 200;
+  --fw-ultralight: var(--fw-xlight);
+  --fw-light: 300;
+  --fw-normal: 400;
+  --fw-regular: var(--fw-normal);
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-demibold: var(--fw-semibold);
+  --fw-bold: 700;
+  --fw-xbold: 800;
+  --fw-ultrabold: var(--fw-xbold);
+  --fw-black: 900;
+  --fw-heavy: var(--fw-black);
+  --fw-xblack: 950;
+  --fw-ultrablack: var(--fw-xblack);
+
+  // colors
+  --c-light: #ffeedd;
+  --c-dark: #111111;
+
+  // animations
+  // in-out
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  // smooth
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  // snappy
+  --ease-snappy: cubic-bezier(0.19, 0.9, 0.3, 1);
+  // spring
+  --ease-spring: linear(0, .009, .035 2.1%, .141 4.4%, .723 12.9%, .938 16.7%, 1.017, 1.077, 1.121, 1.149 24.3%, 1.159, 1.163, 1.161, 1.154 29.9%, 1.129 32.8%, 1.051 39.6%, 1.017 43.1%, .991, .977 51%, .974 53.8%, .975 57.1%, .997 69.8%, 1.003 76.9%, 1);
+
+  // z-index
+  --zi-cursor: 20000;
+  --zi-splash: 80000;
+}

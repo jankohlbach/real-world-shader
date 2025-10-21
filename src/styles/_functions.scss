@@ -1,0 +1,77 @@
+@use 'sass:math';
+@use 'sass:meta';
+
+@function strip-unit($number) {
+  @if meta.type-of($number)=='number' and not math.is-unitless($number) {
+    @return math.div($number, ($number * 0 + 1));
+  }
+
+  @return $number;
+}
+
+@function to-rem($size-in-px) {
+  @return math.div(strip-unit($size-in-px), strip-unit(16px)) * 1rem;
+}
+
+@function clamp-fluid($start, $end) {
+  // Determine if this is an ascending or descending range
+  $is-ascending: $start < $end;
+  $min-value: if($is-ascending, $start, $end);
+  $max-value: if($is-ascending, $end, $start);
+
+  @if $is-ascending {
+    // Normal ascending range (e.g., 16 to 32)
+    @return clamp(
+      to-rem($start),
+      calc(
+        ((100 * ($end - $start)) / (var(--fluid-max) - var(--fluid-min))) * 1vw
+      ) + calc(
+        ((var(--fluid-min) * $end) - (var(--fluid-max) * $start)) / (var(--fluid-min) - var(--fluid-max))
+      ) / 16 * 1rem,
+      to-rem($end)
+    );
+  } @else {
+    // Descending range (e.g., -63 to -104)
+    @return clamp(
+      to-rem($end),
+      calc(
+        ((100 * ($end - $start)) / (var(--fluid-max) - var(--fluid-min))) * 1vw
+      ) + calc(
+        ((var(--fluid-min) * $end) - (var(--fluid-max) * $start)) / (var(--fluid-min) - var(--fluid-max))
+      ) / 16 * 1rem,
+      to-rem($start)
+    );
+  }
+}
+
+@function str-replace($string, $search, $replace: "") {
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+
+  @return $string;
+}
+
+@function url-encode($string) {
+  $map: (('<', '%3C'),
+    ('>', '%3E'),
+    ('"', '\''),
+    ('#', '%23'),
+    ('&', '%26'),
+  );
+
+  $new: $string;
+
+  @each $search,
+  $replace in $map {
+    $new: str-replace($new, $search, $replace);
+  }
+
+  @return $new;
+}
+
+@function inline-svg($string) {
+  @return url("data:image/svg+xml,#{url-encode($string)}");
+}
