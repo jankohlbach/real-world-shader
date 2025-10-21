@@ -12,18 +12,20 @@ h6,
 .h6 {
   font-weight: var(--fw-regular);
   line-height: 1.2;
+
+  &:not(.lowercase) {
+    text-transform: uppercase;
+  }
 }
 
 h1,
 .h1 {
   font-size: var(--fs-1);
-  text-transform: uppercase;
 }
 
 h2,
 .h2 {
   font-size: var(--fs-2);
-  text-transform: uppercase;
 }
 
 h3,
@@ -60,7 +62,7 @@ h6,
   h5,
   h6 {
     &:not(:first-child) {
-      margin-top: 1.2em;
+      margin-top: 2em;
     }
   }
 
