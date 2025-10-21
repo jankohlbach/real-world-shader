@@ -1,71 +1,148 @@
 ---
 import Layout from '@layouts/Layout.astro';
+import HeaderGeneric from '@components/HeaderGeneric.astro';
+import EffectTile from '@components/EffectTile.astro';
+import ShaderLinks from '@components/ShaderLinks.astro';
 ---
 
 <Layout>
+  <HeaderGeneric disableButtonBack={true} title="real world shader">
+    <p class="richtext">
+      This is just a little playground for me. I wanted a place to collect
+      various shader effects that I can actually use in real world client
+      projects.<br />
+      All the code of this website is public (<a
+        href="https://github.com/jankohlbach/real-world-shader"
+        target="_blank">GitHub ↗</a
+      >) so you can see how I'm doing this and copy it for your projects if you
+      want.<br />
+      I also made the shaders directly accessible for you to copy or expand on.
+    </p>
+  </HeaderGeneric>
+
   <main>
-    <div class="intro">add link to github</div>
-    <section class="container">
-      <h1 data-inview>astro creative base</h1>
-      <p data-inview>
-        astro starter for creative projects, includes scss setup, gsap, lenis
-        scroll, curtainsjs to load media with webgl, custom cursor, inview
-        trigger, splash screen, robots.txt, sitemap.xml
-      </p>
-    </section>
-    <section class="container">
-      <h2 data-inview>section</h2>
-      <div class="grid media">
-        <div class="image" data-canvas>
-          <img src="/texture.jpg" alt="test-texture" crossorigin="" />
+    <section>
+      <h2>group title</h2>
+      <div class="grid">
+        <div class="tile">
+          <a href="/effect-1">
+            <EffectTile />
+            <h3>title</h3>
+          </a>
+          <ShaderLinks />
         </div>
-        <div class="video" data-canvas>
-          <video src="/video.mp4" muted autoplay loop playsinline crossorigin=""
-          ></video>
+        <div class="tile">
+          <a href="/effect-1">
+            <EffectTile />
+            <h3>title</h3>
+          </a>
+          <ShaderLinks />
+        </div>
+        <div class="tile">
+          <a href="/effect-1">
+            <EffectTile />
+            <h3>title</h3>
+          </a>
+          <ShaderLinks />
+        </div>
+        <div class="tile">
+          <a href="/effect-1">
+            <EffectTile />
+            <h3>title</h3>
+          </a>
+          <ShaderLinks />
+        </div>
+        <div class="tile">
+          <a href="/effect-1">
+            <EffectTile />
+            <h3>title</h3>
+          </a>
+          <ShaderLinks />
+        </div>
+        <div class="tile">
+          <a href="/effect-1">
+            <EffectTile />
+            <h3>title</h3>
+          </a>
+          <ShaderLinks />
+        </div>
+        <div class="tile">
+          <a href="/effect-1">
+            <EffectTile />
+            <h3>title</h3>
+          </a>
+          <ShaderLinks />
         </div>
       </div>
     </section>
-    <section class="container">
-      <h2 data-inview>section</h2>
-      <div class="grid media">
-        <div class="image" data-canvas>
-          <img src="/texture.jpg" alt="test-texture" crossorigin="" />
+
+    <section>
+      <h2>group title</h2>
+      <div class="grid">
+        <div class="tile">
+          <a href="/effect-1">
+            <EffectTile />
+            <h3>title</h3>
+          </a>
+          <ShaderLinks />
+        </div>
+        <div class="tile">
+          <a href="/effect-1">
+            <EffectTile />
+            <h3>title</h3>
+          </a>
+          <ShaderLinks />
         </div>
       </div>
     </section>
-    <section class="container">
-      <h2 data-inview>section</h2>
-      <div class="grid media">
-        <div class="image" data-canvas>
-          <img src="/texture.jpg" alt="test-texture" crossorigin="" />
-        </div>
-      </div>
+
+    <section>
+      <h2>more to come ...</h2>
+      <br />
+      <h3>
+        You have ideas, requests, or a shader you want to contribute? -&gt; <a
+          href="mailto:rws@jankohlbach.com">write me a mail</a
+        > or on socials @jankohlbach
+      </h3>
     </section>
   </main>
 </Layout>
 
 <style lang="scss">
-  section {
-    // margin-block: to-rem(100);
+  section + section {
+    padding-top: var(--s-m);
+    margin-top: var(--s-m);
+    border-top: 1px solid var(--c-light);
+  }
+
+  .grid {
+    margin-top: to-rem(36);
+  }
+
+  .tile {
+    grid-column: span 12;
     display: flex;
     flex-direction: column;
-    gap: to-rem(50);
-    align-items: flex-start;
+    gap: to-rem(14);
+
+    a {
+      display: flex;
+      flex-direction: column;
+      gap: inherit;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
   }
 
-  p {
-    max-width: 60ch;
+  @media (min-width: 520px) {
+    .tile {
+      grid-column: span 6;
+    }
   }
 
-  .media {
-    align-items: start;
-  }
-
-  .image {
-    grid-column: span 4;
-  }
-
-  .video {
-    grid-column: 7 / span 6;
+  @media (min-width: 1024px) {
+    .tile {
+      grid-column: span 3;
+    }
   }
 </style>

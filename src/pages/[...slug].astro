@@ -1,0 +1,39 @@
+---
+import Layout from '@layouts/Layout.astro';
+import HeaderGeneric from '@components/HeaderGeneric.astro';
+import EffectTile from '@components/EffectTile.astro';
+import ShaderLinks from '@components/ShaderLinks.astro';
+
+export async function getStaticPaths() {
+  const pages = [{ id: 'effect-1' }];
+
+  return pages.map((page) => ({
+    params: { slug: page.id },
+    // props: { page },
+  }));
+}
+
+// const { page } = Astro.props;
+---
+
+<Layout>
+  <HeaderGeneric title="Effectname">
+    <p class="richtext">This is the description for the effect</p>
+    <ShaderLinks />
+  </HeaderGeneric>
+
+  <main>
+    <section>
+      <div class="wrap">
+        <EffectTile />
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style lang="scss">
+  .wrap {
+    max-width: 80vmin;
+    margin-inline: auto;
+  }
+</style>

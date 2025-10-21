@@ -11,7 +11,7 @@
   --fluid-max: 1720;
   --container-max-width: #{to-rem(1920)};
   --grid-margin: #{to-rem(20)};
-  --grid-gutter: #{clamp-fluid(10, 20)};
+  --grid-gutter: #{clamp-fluid(30, 60)};
   --grid-max-width: calc(var(--container-max-width) - var(--grid-margin) * 2);
   --grid-columns: 12;
 
@@ -20,6 +20,7 @@
   --ff-secondary: 'Georgia', 'Times New Roman', serif;
 
   // font-sizes
+  --fs-small: #{clamp-fluid(14, 16)};
   --fs-base: #{clamp-fluid(16, 18)};
   --fs-1: #{clamp-fluid(40, 56)};
   --fs-2: #{clamp-fluid(24, 28)};

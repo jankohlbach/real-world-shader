@@ -1,10 +1,19 @@
 ---
-const { title } = Astro.props;
+const { disableButtonBack, title } = Astro.props;
 ---
 
 <header>
-  <a href="/">{'<- back'}</a>
+  {!disableButtonBack && <a href="/">&lt;- back</a>}
+
   <h1>{title}</h1>
+
+  {
+    Astro.slots.has('default') && (
+      <div class="content">
+        <slot />
+      </div>
+    )
+  }
 </header>
 
 <style lang="scss">
@@ -19,6 +28,14 @@ const { title } = Astro.props;
 
     a {
       text-decoration: none;
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: inherit;
+      max-width: 60ch;
     }
   }
 </style>

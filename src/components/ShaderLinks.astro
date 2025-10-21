@@ -1,0 +1,20 @@
+<div>
+  <a
+    :href="`https://github.com/jankohlbach/real-world-shader/blob/main/assets/shader/${path.replace('-', '/')}-vertex.glsl`"
+    target="_blank">vertex shader ↗</a
+  >
+  <a
+    :href="`https://github.com/jankohlbach/real-world-shader/blob/main/assets/shader/${path.replace('-', '/')}-fragment.glsl`"
+    target="_blank">fragment shader ↗</a
+  >
+</div>
+
+<style lang="scss">
+  a {
+    display: block;
+    font-size: var(--fs-small);
+    line-height: 1.4;
+    text-decoration: none;
+    opacity: 0.5;
+  }
+</style>
