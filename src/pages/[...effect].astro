@@ -1,31 +1,33 @@
 ---
+import { getCollection } from 'astro:content';
+
 import Layout from '@layouts/Layout.astro';
 import HeaderGeneric from '@components/HeaderGeneric.astro';
 import EffectTile from '@components/EffectTile.astro';
 import ShaderLinks from '@components/ShaderLinks.astro';
 
 export async function getStaticPaths() {
-  const pages = [{ id: 'effect-1' }];
+  const effects = await getCollection('effects');
 
-  return pages.map((page) => ({
-    params: { slug: page.id },
-    // props: { page },
+  return effects.map((effect) => ({
+    params: { effect: effect.id },
+    props: { effect },
   }));
 }
 
-// const { page } = Astro.props;
+const { effect } = Astro.props;
 ---
 
 <Layout>
-  <HeaderGeneric title="Effectname">
-    <p class="richtext">This is the description for the effect</p>
-    <ShaderLinks />
+  <HeaderGeneric title={effect.data.title}>
+    <p class="richtext">{effect.data.description}</p>
+    <ShaderLinks effect={effect} />
   </HeaderGeneric>
 
   <main>
     <section>
       <div class="wrap">
-        <EffectTile />
+        <EffectTile effect={effect} />
       </div>
     </section>
   </main>

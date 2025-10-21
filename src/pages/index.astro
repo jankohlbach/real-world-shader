@@ -1,8 +1,28 @@
 ---
+import { getCollection } from 'astro:content';
+
 import Layout from '@layouts/Layout.astro';
 import HeaderGeneric from '@components/HeaderGeneric.astro';
 import EffectTile from '@components/EffectTile.astro';
 import ShaderLinks from '@components/ShaderLinks.astro';
+
+const effects = await getCollection('effects');
+const groupedEffects = Object.groupBy(effects, ({ id }) => id.split('/')[0]);
+
+const categoryConfig = [
+  { key: 'distortion', title: 'Distortion Effects' },
+  { key: 'hover', title: 'Effects based on hover' },
+  { key: 'scroll', title: 'Effects based on scroll' },
+];
+
+const orderedCategories = categoryConfig
+  .filter(({ key }) => groupedEffects[key])
+  .map(({ key, title }) => ({
+    key,
+    title,
+    effects:
+      groupedEffects[key]?.sort((a, b) => a.id.localeCompare(b.id)) || [],
+  }));
 ---
 
 <Layout>
@@ -21,80 +41,24 @@ import ShaderLinks from '@components/ShaderLinks.astro';
   </HeaderGeneric>
 
   <main>
-    <section>
-      <h2>group title</h2>
-      <div class="grid">
-        <div class="tile">
-          <a href="/effect-1">
-            <EffectTile />
-            <h3>title</h3>
-          </a>
-          <ShaderLinks />
-        </div>
-        <div class="tile">
-          <a href="/effect-1">
-            <EffectTile />
-            <h3>title</h3>
-          </a>
-          <ShaderLinks />
-        </div>
-        <div class="tile">
-          <a href="/effect-1">
-            <EffectTile />
-            <h3>title</h3>
-          </a>
-          <ShaderLinks />
-        </div>
-        <div class="tile">
-          <a href="/effect-1">
-            <EffectTile />
-            <h3>title</h3>
-          </a>
-          <ShaderLinks />
-        </div>
-        <div class="tile">
-          <a href="/effect-1">
-            <EffectTile />
-            <h3>title</h3>
-          </a>
-          <ShaderLinks />
-        </div>
-        <div class="tile">
-          <a href="/effect-1">
-            <EffectTile />
-            <h3>title</h3>
-          </a>
-          <ShaderLinks />
-        </div>
-        <div class="tile">
-          <a href="/effect-1">
-            <EffectTile />
-            <h3>title</h3>
-          </a>
-          <ShaderLinks />
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <h2>group title</h2>
-      <div class="grid">
-        <div class="tile">
-          <a href="/effect-1">
-            <EffectTile />
-            <h3>title</h3>
-          </a>
-          <ShaderLinks />
-        </div>
-        <div class="tile">
-          <a href="/effect-1">
-            <EffectTile />
-            <h3>title</h3>
-          </a>
-          <ShaderLinks />
-        </div>
-      </div>
-    </section>
+    {
+      orderedCategories.map(({ title, effects }) => (
+        <section>
+          <h2>{title}</h2>
+          <div class="grid">
+            {effects.map((effect) => (
+              <div class="tile">
+                <a href={`/${effect.id}`}>
+                  <EffectTile effect={effect} />
+                  <h3>{effect.data.title}</h3>
+                </a>
+                <ShaderLinks effect={effect} />
+              </div>
+            ))}
+          </div>
+        </section>
+      ))
+    }
 
     <section>
       <h2>more to come ...</h2>

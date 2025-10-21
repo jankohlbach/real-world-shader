@@ -1,5 +1,15 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  effect: CollectionEntry<'effects'>;
+}
+
+const { effect } = Astro.props;
+---
+
 <div class="image" data-canvas>
-  <img src="/something.webp" crossorigin="" />
+  <img src={effect.data.image} crossorigin="" />
 </div>
 
 <style lang="scss">

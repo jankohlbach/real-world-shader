@@ -1,10 +1,20 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  effect: CollectionEntry<'effects'>;
+}
+
+const { effect } = Astro.props;
+---
+
 <div>
   <a
-    :href="`https://github.com/jankohlbach/real-world-shader/blob/main/assets/shader/${path.replace('-', '/')}-vertex.glsl`"
+    href={`https://github.com/jankohlbach/real-world-shader/blob/main/assets/shader/${effect.id}/vertex.glsl`}
     target="_blank">vertex shader ↗</a
   >
   <a
-    :href="`https://github.com/jankohlbach/real-world-shader/blob/main/assets/shader/${path.replace('-', '/')}-fragment.glsl`"
+    href={`https://github.com/jankohlbach/real-world-shader/blob/main/assets/shader/${effect.id}/fragment.glsl`}
     target="_blank">fragment shader ↗</a
   >
 </div>
