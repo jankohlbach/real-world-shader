@@ -13,7 +13,7 @@
   --grid-columns: 12;
 
   // fonts
-  --ff-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  --ff-primary: 'Erstling', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
   --ff-secondary: 'Georgia', 'Times New Roman', serif;
 
   // font-sizes
@@ -45,8 +45,10 @@
   --fw-ultrablack: var(--fw-xblack);
 
   // colors
-  --c-light: #ffeedd;
-  --c-dark: #111111;
+  --c-light: #eeeeee;
+  --c-dark: #151515;
+  --c-background: #232a2a;
+  --c-accent: #21EBB9;
 
   // animations
   // in-out

@@ -9,9 +9,9 @@ import Canvas from '@components/Canvas.astro';
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const title = 'astro creative base';
+const title = 'real world shader';
 const description =
-  'astro starter for creative projects, includes scss setup, gsap, lenis scroll, curtainsjs to load media with webgl, custom cursor, inview trigger, splash screen, robots.txt, sitemap.xml';
+  'a collection of shader effects that are actually useful in real world client projects';
 const shareImage = new URL('og-image.jpg', Astro.site);
 ---
 
@@ -20,7 +20,7 @@ const shareImage = new URL('og-image.jpg', Astro.site);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#111111" />
+    <meta name="theme-color" content="#151515" />
     <title>{title}</title>
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -29,7 +29,7 @@ const shareImage = new URL('og-image.jpg', Astro.site);
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="canonical" href={canonicalURL} />
     <!-- TODO: remove when going live -->
-    <!-- <meta name="robots" content="noindex, nofollow" /> -->
+    <meta name="robots" content="noindex, nofollow" />
     <meta name="description" content={description} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -41,7 +41,13 @@ const shareImage = new URL('og-image.jpg', Astro.site);
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={shareImage} />
-    <!-- TODO: preload font -->
+    <link
+      rel="preload"
+      href="/fonts/Erstling/Erstling-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <script is:inline>
       if (!sessionStorage.getItem('splash:played')) {
         document.documentElement.classList.add('play-splash');
@@ -51,8 +57,8 @@ const shareImage = new URL('og-image.jpg', Astro.site);
       is:inline
       defer
       src="https://tracking.jnkl.dev/script.js"
-      data-website-id="b44d7dd2-f222-4333-a09d-e66fbe703a6e"
-      data-domains="astro-creative-base.vercel.app"
+      data-website-id="cb5b5e20-08da-4ab4-9207-6e3bd7a7d7df"
+      data-domains="real-world-shader.jankohlbach.com"
       data-do-not-track="true"></script>
   </head>
   <body>
