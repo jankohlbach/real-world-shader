@@ -26,8 +26,8 @@
   };
 
   const calcLerp = () => {
-    const x = lerp(cursorPos.current.x, cursorPos.target.x, 0.1);
-    const y = lerp(cursorPos.current.y, cursorPos.target.y, 0.1);
+    const x = lerp(cursorPos.current.x, cursorPos.target.x, 0.05);
+    const y = lerp(cursorPos.current.y, cursorPos.target.y, 0.05);
 
     setCursorPosCurrent(x, y);
 
@@ -81,16 +81,18 @@
 <style lang="scss">
   .cursor {
     position: fixed;
+    top: 0;
+    left: 0;
     z-index: var(--zi-cursor);
     display: none;
-    width: to-rem(12);
-    height: to-rem(12);
+    width: to-rem(5);
+    height: to-rem(5);
     opacity: 0;
     user-select: none;
     pointer-events: none;
     transform: translate3d(
-      calc((100vw * var(--cursor-x) - 50%) + to-rem(24)),
-      calc((100vh * var(--cursor-y) - 50%) + to-rem(24)),
+      calc((100vw * var(--cursor-x) - 100%)),
+      calc((100vh * var(--cursor-y) - 100%)),
       0
     );
     transition: opacity 0.4s var(--ease-smooth);
@@ -101,8 +103,7 @@
 
     &.is-hover {
       .cursor-inner {
-        background-color: var(--c-light);
-        transform: scale(0.5);
+        scale: 0.5;
       }
     }
 
@@ -115,11 +116,7 @@
     width: 100%;
     height: 100%;
     border-radius: 100%;
-    color: var(--c-light);
-    background-color: var(--c-dark);
-    border: 1px solid var(--c-dark);
-    transition:
-      transform 0.4s var(--ease-smooth),
-      background-color 0.4s var(--ease-smooth);
+    background-color: var(--c-accent);
+    transition: scale 0.4s var(--ease-smooth);
   }
 </style>

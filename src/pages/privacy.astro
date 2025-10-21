@@ -1,0 +1,23 @@
+---
+import Layout from '@layouts/Layout.astro';
+import HeaderGeneric from '@components/HeaderGeneric.astro';
+---
+
+<Layout>
+  <HeaderGeneric title="Privacy" />
+
+  <main>
+    <section>
+      <div class="richtext">
+        <h2>Privacy Policy</h2>
+        <p>content follows</p>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style lang="scss">
+  .richtext {
+    max-width: min(to-rem(960), 90%);
+  }
+</style>

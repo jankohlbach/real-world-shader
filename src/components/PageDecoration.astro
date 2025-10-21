@@ -1,0 +1,86 @@
+<svg class="star" viewBox="0 0 38 38" fill="none">
+  <path
+    d="M7.62939e-06 19C16.5984 17.0462 16.9706 16.674 18.6081 0.391927C20.3014 16.6554 20.6736 17.0275 37.2162 19C20.6736 20.377 20.3014 20.7492 18.6081 37.6081C16.952 20.7492 16.5798 20.377 7.62939e-06 19Z"
+    fill="currentColor"></path>
+</svg>
+<svg class="star" viewBox="0 0 38 38" fill="none">
+  <path
+    d="M7.62939e-06 19C16.5984 17.0462 16.9706 16.674 18.6081 0.391927C20.3014 16.6554 20.6736 17.0275 37.2162 19C20.6736 20.377 20.3014 20.7492 18.6081 37.6081C16.952 20.7492 16.5798 20.377 7.62939e-06 19Z"
+    fill="currentColor"></path>
+</svg>
+<svg class="star" viewBox="0 0 38 38" fill="none">
+  <path
+    d="M7.62939e-06 19C16.5984 17.0462 16.9706 16.674 18.6081 0.391927C20.3014 16.6554 20.6736 17.0275 37.2162 19C20.6736 20.377 20.3014 20.7492 18.6081 37.6081C16.952 20.7492 16.5798 20.377 7.62939e-06 19Z"
+    fill="currentColor"></path>
+</svg>
+<svg class="star" viewBox="0 0 38 38" fill="none">
+  <path
+    d="M7.62939e-06 19C16.5984 17.0462 16.9706 16.674 18.6081 0.391927C20.3014 16.6554 20.6736 17.0275 37.2162 19C20.6736 20.377 20.3014 20.7492 18.6081 37.6081C16.952 20.7492 16.5798 20.377 7.62939e-06 19Z"
+    fill="currentColor"></path>
+</svg>
+<span class="border border-top"></span>
+<span class="border border-bottom"></span>
+<span class="border border-left"></span>
+<span class="border border-right"></span>
+
+<style lang="scss">
+  .star {
+    position: absolute;
+    width: var(--star-width);
+    aspect-ratio: 1 / 1;
+    color: var(--c-accent);
+
+    &:nth-child(1) {
+      top: 0;
+      left: 0;
+    }
+
+    &:nth-child(2) {
+      top: 0;
+      right: 0;
+    }
+
+    &:nth-child(3) {
+      bottom: 0;
+      right: 0;
+    }
+
+    &:nth-child(4) {
+      bottom: 0;
+      left: 0;
+    }
+  }
+
+  .border {
+    position: absolute;
+    background-color: var(--c-light);
+
+    &-top {
+      top: calc(var(--star-width) / 2);
+      left: calc(var(--star-width) * 1.5);
+      width: calc(100% - var(--star-width) * 3);
+      height: to-rem(1);
+    }
+
+    &-bottom {
+      bottom: calc(var(--star-width) / 2);
+      left: calc(var(--star-width) * 1.5);
+      width: calc(100% - var(--star-width) * 3);
+      height: to-rem(1);
+    }
+
+    &-left {
+      top: calc(var(--star-width) * 1.5);
+      left: calc(var(--star-width) / 2);
+      width: to-rem(1);
+      height: calc(100% - var(--star-width) * 3);
+    }
+
+    &-right {
+      top: calc(var(--star-width) * 1.5);
+      right: calc(var(--star-width) / 2);
+      width: to-rem(1);
+      height: calc(100% - var(--star-width) * 3);
+    }
+  }
+</style>

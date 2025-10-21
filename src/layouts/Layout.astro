@@ -2,9 +2,8 @@
 import '../styles/index.scss';
 
 import Cursor from '@components/Cursor.astro';
-import Header from '@components/Header.astro';
+import PageDecoration from '@components/PageDecoration.astro';
 import Footer from '@components/Footer.astro';
-import Splash from '@components/Splash.astro';
 import Canvas from '@components/Canvas.astro';
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -48,11 +47,6 @@ const shareImage = new URL('og-image.jpg', Astro.site);
       type="font/woff2"
       crossorigin
     />
-    <script is:inline>
-      if (!sessionStorage.getItem('splash:played')) {
-        document.documentElement.classList.add('play-splash');
-      }
-    </script>
     <script
       is:inline
       defer
@@ -64,13 +58,13 @@ const shareImage = new URL('og-image.jpg', Astro.site);
   <body>
     <Cursor />
 
-    <Header />
+    <div class="page-wrap container">
+      <PageDecoration />
 
-    <slot />
+      <slot />
 
-    <Footer />
-
-    <Splash text="splish splash" />
+      <Footer />
+    </div>
 
     <Canvas />
 
@@ -81,3 +75,36 @@ const shareImage = new URL('og-image.jpg', Astro.site);
     </script>
   </body>
 </html>
+
+<style lang="scss">
+  body {
+    &::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      background-image: url('/bg-texture.webp');
+      background-size: cover;
+      background-repeat: no-repeat;
+      mix-blend-mode: multiply;
+      pointer-events: none;
+    }
+  }
+
+  .page-wrap {
+    --star-width: #{clamp-fluid(25, 40)};
+
+    position: relative;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: calc(var(--star-width) * 1.5);
+    margin: clamp-fluid(15, 25);
+    min-height: calc(100dvh - clamp-fluid(30, 50));
+  }
+
+  @media (min-width: 1920px) {
+    .page-wrap {
+      margin-inline: auto;
+    }
+  }
+</style>

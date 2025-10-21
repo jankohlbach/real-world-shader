@@ -38,6 +38,7 @@ export default defineConfig({
     },
     plugins: [glsl()],
   },
+  trailingSlash: 'never',
 });
 
 // file meta order

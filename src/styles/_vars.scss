@@ -2,6 +2,9 @@
 
 :root {
   // spacings
+  --s-s: #{clamp-fluid(15, 25)};
+  --s-m: #{clamp-fluid(25, 50)};
+  --s-l: #{clamp-fluid(50, 100)};
 
   // grid
   --fluid-min: 375;
@@ -17,13 +20,13 @@
   --ff-secondary: 'Georgia', 'Times New Roman', serif;
 
   // font-sizes
-  --fs-base: #{clamp-fluid(18, 24)};
-  --fs-1: #{clamp-fluid(54, 72)};
-  --fs-2: #{clamp-fluid(44, 60)};
-  --fs-3: #{clamp-fluid(38, 50)};
-  --fs-4: #{clamp-fluid(32, 42)};
-  --fs-5: #{clamp-fluid(26, 34)};
-  --fs-6: #{clamp-fluid(22, 28)};
+  --fs-base: #{clamp-fluid(16, 18)};
+  --fs-1: #{clamp-fluid(40, 56)};
+  --fs-2: #{clamp-fluid(24, 28)};
+  --fs-3: #{clamp-fluid(18, 20)};
+  --fs-4: #{clamp-fluid(16, 18)};
+  --fs-5: #{clamp-fluid(16, 18)};
+  --fs-6: #{clamp-fluid(16, 18)};
 
   // font-weights
   --fw-thin: 100;
