@@ -4,8 +4,27 @@
   import { Curtains, Plane } from 'curtainsjs';
 
   import { lenis } from '../scripts/scroll';
-  import vertexShader from '../shader/vertex.glsl';
-  import fragmentShader from '../shader/fragment.glsl';
+  import baseVertexShader from '../shader/vertex.glsl';
+  import baseFragmentShader from '../shader/fragment.glsl';
+
+  const shaderFiles = import.meta.glob(['../shader/**/*.glsl'], {
+    eager: true,
+  });
+
+  const findShaderFiles = (shader: string) => {
+    return {
+      vertex: (
+        shaderFiles[`../shader/${shader}/vertex.glsl`] as {
+          default: string | undefined;
+        }
+      )?.default,
+      fragment: (
+        shaderFiles[`../shader/${shader}/fragment.glsl`] as {
+          default: string | undefined;
+        }
+      )?.default,
+    };
+  };
 
   window.addEventListener('load', () => {
     const planes = [];
@@ -27,8 +46,8 @@
     const planeElements = document.querySelectorAll('[data-canvas]');
 
     const params: PlaneParams = {
-      vertexShader,
-      fragmentShader,
+      vertexShader: baseVertexShader,
+      fragmentShader: baseFragmentShader,
       widthSegments: 100,
       heightSegments: 100,
       transparent: true,
@@ -42,6 +61,24 @@
     };
 
     planeElements.forEach((planeElement) => {
+      const shader = planeElement.getAttribute('data-shader');
+
+      if (shader) {
+        const foundShaderFiles = findShaderFiles(shader);
+
+        if (
+          foundShaderFiles &&
+          foundShaderFiles.vertex &&
+          foundShaderFiles.fragment
+        ) {
+          params.vertexShader = foundShaderFiles.vertex;
+          params.fragmentShader = foundShaderFiles.fragment;
+        } else {
+          params.vertexShader = baseVertexShader;
+          params.fragmentShader = baseFragmentShader;
+        }
+      }
+
       const plane = new Plane(curtains, planeElement, params);
       planes.push(plane);
 
@@ -49,9 +86,6 @@
         plane.uniforms.time.value = (plane.uniforms.time.value as number) + 1;
       });
     });
-
-    // TODO: pause rendering when not scrolling?
-    // TODO: don't update planes when not in view?
 
     lenis.on('scroll', () => {
       curtains.updateScrollValues(window.scrollX, window.scrollY);
@@ -67,6 +101,7 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
+    z-index: var(--zi-canvas);
+    pointer-events: none;
   }
 </style>

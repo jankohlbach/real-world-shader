@@ -8,7 +8,7 @@ interface Props {
 const { effect } = Astro.props;
 ---
 
-<div class="image" data-canvas>
+<div class="image" data-canvas data-shader={effect.id}>
   <img src={effect.data.image} crossorigin="" />
 </div>
 

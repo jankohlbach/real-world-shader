@@ -24,7 +24,6 @@ varying vec2 vTextureCoord; // mapped
 
 void main() {
   vec3 vertexPosition = aVertexPosition;
-  vertexPosition.z = sin(vertexPosition.x * PI + uTime * 0.025) * 0.025;
   gl_Position = uPMatrix * uMVMatrix * vec4(vertexPosition, 1.0);
 
   vVertexPosition = vertexPosition;

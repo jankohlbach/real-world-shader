@@ -16,6 +16,6 @@ varying vec2 vTextureCoord; // mapped
 
 void main() {
   vec2 textureCoord = vTextureCoord;
-  textureCoord.x += sin(textureCoord.y * 10.0) * cos(textureCoord.x * 10.0) * (cos(uTime / 50.0)) / 25.0;
   gl_FragColor = texture2D(uSampler0, textureCoord);
+  gl_FragColor = vec4(vOriginalTextureCoord.x, vOriginalTextureCoord.y, 0.0, 1.0);
 }
