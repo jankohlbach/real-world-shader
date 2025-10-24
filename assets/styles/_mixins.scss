@@ -1,5 +1,0 @@
-@mixin has-hover() {
-  @media (hover: hover) and (min-width: 768px) {
-    @content;
-  }
-}
