@@ -50,6 +50,9 @@
       offset: { x: 0, y: Math.PI * 0.3 },
       center: { x: 0.5, y: 0.5 },
     };
+    const fakeCursor: HTMLElement | null = document.querySelector(
+      '[data-js="fake-cursor"]',
+    );
 
     const scroll = {
       velocity: 0,
@@ -198,7 +201,6 @@
             mouse.posTarget.x <= planeRect.right &&
             mouse.posTarget.y >= planeRect.top &&
             mouse.posTarget.y <= planeRect.bottom;
-
           const wasInside = plane.userData.wasMouseInside || false;
 
           if (isInside && !wasInside) {
@@ -217,9 +219,7 @@
 
           plane.userData.wasMouseInside = isInside;
 
-          // TODO: more beautiful cursor (svg) and only show when hover effects section is visible
-          const fakeCursor: HTMLElement | null =
-            document.querySelector('.fake-cursor');
+          // TODO: only show when hover effects section is visible
           fakeCursor?.style.setProperty('--cursor-x', x.toString());
           fakeCursor?.style.setProperty('--cursor-y', y.toString());
         }
@@ -260,8 +260,12 @@
 </script>
 
 <div class="canvas" data-js="canvas"></div>
-<!-- TODO -->
-<div class="fake-cursor"></div>
+<svg viewBox="0 0 24 24" fill="none" class="fake-cursor" data-js="fake-cursor">
+  <path
+    d="M1.64648 0.541016C1.91485 0.47689 2.19576 0.488451 2.45801 0.574219H2.45898L22.4688 7.1084V7.10742C22.7541 7.20361 23.0038 7.38389 23.1855 7.62402C23.3679 7.86511 23.4729 8.15606 23.4873 8.45801C23.5016 8.76012 23.4245 9.06002 23.2656 9.31738C23.1069 9.57449 22.8738 9.77681 22.5977 9.89941L22.5801 9.90723L16.3096 12.3154L15.5908 12.5918L16.1357 13.1367L23.207 20.2061C23.3944 20.3935 23.499 20.648 23.499 20.9131C23.499 21.1781 23.3943 21.4326 23.207 21.6201L21.6201 23.207C21.5272 23.3002 21.4165 23.3743 21.2949 23.4248C21.1734 23.4753 21.0427 23.501 20.9111 23.501C20.7797 23.5009 20.6497 23.4752 20.5283 23.4248C20.4068 23.3743 20.296 23.3003 20.2031 23.207H20.2021L13.1309 16.1357L12.5869 15.5908L12.3105 16.3096L9.90918 22.5752L9.89844 22.6025C9.78392 22.8692 9.59319 23.0965 9.35059 23.2559C9.10788 23.4152 8.82352 23.5 8.5332 23.499H8.45508C8.15251 23.4863 7.86083 23.381 7.62012 23.1973C7.37949 23.0135 7.20135 22.7601 7.10938 22.4717L7.1084 22.4688L0.574219 2.45898V2.45801C0.488451 2.19576 0.47689 1.91485 0.541016 1.64648C0.605178 1.37807 0.742353 1.13265 0.9375 0.9375C1.13265 0.742353 1.37807 0.605178 1.64648 0.541016Z"
+    fill="black"
+    stroke="white"></path>
+</svg>
 
 <style lang="scss">
   .canvas {
@@ -273,14 +277,13 @@
     pointer-events: none;
   }
 
-  // TODO
   .fake-cursor {
     position: fixed;
     top: 0;
     left: 0;
     z-index: var(--zi-cursor);
-    width: to-rem(10);
-    height: to-rem(10);
+    width: to-rem(20);
+    height: to-rem(20);
     user-select: none;
     pointer-events: none;
     transform: translate3d(
@@ -288,6 +291,5 @@
       calc((100vh * var(--cursor-y) - 100%)),
       0
     );
-    background: salmon;
   }
 </style>
