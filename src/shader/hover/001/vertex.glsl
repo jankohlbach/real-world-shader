@@ -15,7 +15,11 @@ uniform mat4 uPMatrix;
 uniform mat4 uTextureMatrix0;
 
 // custom uniforms
-uniform float uTime;
+uniform float uAspectRatio; // width / height of the image
+uniform float uTime; // in seconds
+uniform float uScrollVelocity; // - (scroll up) / + (scroll down)
+uniform float uMouseEnter; // 0 - 1 (enter) / 1 - 0 (leave)
+uniform vec2 uMouseOverPos; // -1 (left) -1 (bottom) - 1 (top) 1 (right)
 
 // varyings
 varying vec3 vVertexPosition; // -1 (left) -1 (bottom) - 1 (top) 1 (right)
@@ -24,8 +28,11 @@ varying vec2 vTextureCoord; // mapped
 
 void main() {
   vec3 vertexPosition = aVertexPosition;
+
+  // output
   gl_Position = uPMatrix * uMVMatrix * vec4(vertexPosition, 1.0);
 
+  // varyings
   vVertexPosition = vertexPosition;
   vOriginalTextureCoord = aTextureCoord;
   vTextureCoord = (uTextureMatrix0 * vec4(aTextureCoord, 0.0, 1.0)).xy;

@@ -20,7 +20,7 @@ varying vec2 vTextureCoord; // mapped
 
 vec2 bulge(vec2 textureCoord) {
   // settings
-  float strength = 0.5;
+  float strength = 0.4;
 
   // map mouse position from -1 - 1 to 0 - 1
   vec2 mappedMousePos = uMouseOverPos * 0.5 + 0.5;
@@ -28,11 +28,12 @@ vec2 bulge(vec2 textureCoord) {
   // center coordinates around mouse position
   vec2 tempCoord = textureCoord - mappedMousePos;
 
-  // distort in a circle (credits: https://tympanus.net/codrops/2023/06/28/creating-a-bulge-distortion-effect-with-webgl/)
+  // distort in a circle, make it stronger, invert it (credits: https://tympanus.net/codrops/2023/06/28/creating-a-bulge-distortion-effect-with-webgl/)
   float dist = length(tempCoord);
+  float distStrength = min(dist, 2.0) * strength;
+  float distRevert = 1.0 / (1.0 + distStrength);
 
-  // applay the effect and reduce the effect by scaling down the displacement
-  tempCoord *= mix(1.0, dist, strength);
+  tempCoord *= distRevert;
 
   // centering back
   tempCoord += mappedMousePos;

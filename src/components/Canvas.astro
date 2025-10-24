@@ -1,11 +1,21 @@
 <script>
   import type { PlaneParams } from 'curtainsjs';
 
-  import { Curtains, Plane } from 'curtainsjs';
+  import { Curtains, Plane, Vec2 } from 'curtainsjs';
+  import { gsap } from 'gsap';
+  import { CustomEase } from 'gsap/all';
 
   import { lenis } from '../scripts/scroll';
+  import { lerp } from '../scripts/utils';
   import baseVertexShader from '../shader/vertex.glsl';
   import baseFragmentShader from '../shader/fragment.glsl';
+
+  interface CustomUserData {
+    mousePosCurrent: Vec2;
+    mousePosTarget: Vec2;
+  }
+
+  type CustomPlane = Plane & { userData: CustomUserData };
 
   const shaderFiles = import.meta.glob(['../shader/**/*.glsl'], {
     eager: true,
@@ -27,7 +37,17 @@
   };
 
   window.addEventListener('load', () => {
-    const planes = [];
+    gsap.registerPlugin(CustomEase);
+
+    const scroll = {
+      velocity: 0,
+    };
+    const mouse = {
+      posTarget: new Vec2(0.5, 0.5),
+      lerp: 0.05,
+    };
+    const startTime = performance.now();
+    const planes: CustomPlane[] = [];
 
     const curtains = new Curtains({
       container: document.querySelector('[data-js="canvas"]') || undefined,
@@ -52,10 +72,30 @@
       heightSegments: 100,
       transparent: true,
       uniforms: {
+        aspectRatio: {
+          name: 'uAspectRatio',
+          type: '1f',
+          value: 1.0,
+        },
         time: {
           name: 'uTime',
           type: '1f',
           value: 0.0,
+        },
+        scrollVelocity: {
+          name: 'uScrollVelocity',
+          type: '1f',
+          value: 0.0,
+        },
+        mouseEnter: {
+          name: 'uMouseEnter',
+          type: '1f',
+          value: 0.0,
+        },
+        mouseOverPos: {
+          name: 'uMouseOverPos',
+          type: '2f',
+          value: new Vec2(0.5, 0.5),
         },
       },
     };
@@ -79,16 +119,58 @@
         }
       }
 
-      const plane = new Plane(curtains, planeElement, params);
+      const plane = new Plane(curtains, planeElement, params) as CustomPlane;
+      plane.userData.mousePosCurrent = new Vec2(0.5, 0.5);
+      plane.userData.mousePosTarget = new Vec2(0.5, 0.5);
       planes.push(plane);
 
+      planeElement.addEventListener('mouseenter', () => {
+        gsap.to(plane.uniforms.mouseEnter, {
+          value: 1.0,
+          duration: 0.6,
+          ease: CustomEase.create('custom', '0.4, 0, 0.2, 1'),
+        });
+      });
+      planeElement.addEventListener('mouseleave', () => {
+        gsap.to(plane.uniforms.mouseEnter, {
+          value: 0.0,
+          duration: 0.6,
+          ease: CustomEase.create('custom', '0.4, 0, 0.2, 1'),
+        });
+      });
+
       plane.onRender(() => {
-        plane.uniforms.time.value = (plane.uniforms.time.value as number) + 1;
+        const currentTime = performance.now();
+        const elapsedTime = (currentTime - startTime) / 1000;
+        plane.userData.mousePosTarget = plane.mouseToPlaneCoords(
+          mouse.posTarget,
+        );
+        plane.userData.mousePosCurrent.x = lerp(
+          plane.userData.mousePosCurrent.x,
+          plane.userData.mousePosTarget.x,
+          mouse.lerp,
+        );
+        plane.userData.mousePosCurrent.y = lerp(
+          plane.userData.mousePosCurrent.y,
+          plane.userData.mousePosTarget.y,
+          mouse.lerp,
+        );
+
+        plane.uniforms.aspectRatio.value =
+          plane.getBoundingRect().width / plane.getBoundingRect().height;
+        plane.uniforms.time.value = elapsedTime;
+        plane.uniforms.scrollVelocity.value = scroll.velocity;
+        plane.uniforms.mouseOverPos.value = plane.userData.mousePosCurrent;
       });
     });
 
-    lenis.on('scroll', () => {
+    lenis.on('scroll', (e) => {
       curtains.updateScrollValues(window.scrollX, window.scrollY);
+      scroll.velocity = e.velocity;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      mouse.posTarget.set(e.clientX, e.clientY);
     });
   });
 </script>

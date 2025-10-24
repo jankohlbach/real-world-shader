@@ -18,8 +18,16 @@ varying vec3 vVertexPosition; // -1 (left) -1 (bottom) - 1 (top) 1 (right)
 varying vec2 vOriginalTextureCoord; // 0 (left) 0 (bottom) - 1 (top) 1 (right)
 varying vec2 vTextureCoord; // mapped
 
+#include '../../utils/noise2D.glsl';
+
 void main() {
   vec2 textureCoord = vTextureCoord;
+
+  // create noise
+  float noise = snoise(vTextureCoord * 10.0);
+
+  textureCoord.x += noise * sin(uTime * 0.7);
+  textureCoord.y += noise * cos(uTime * 0.7);
 
   // output
   gl_FragColor = texture2D(uSampler0, textureCoord);

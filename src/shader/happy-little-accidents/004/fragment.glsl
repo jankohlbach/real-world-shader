@@ -21,6 +21,15 @@ varying vec2 vTextureCoord; // mapped
 void main() {
   vec2 textureCoord = vTextureCoord;
 
+  // circle
+  float circle = 1.0 - distance(
+    vec2(0.5),
+    vec2(vTextureCoord)
+  ) * 5.0;
+
+  textureCoord.x += mix(0.0, 1.0, circle + sin(uTime * 1.2) + 0.3);
+  textureCoord.y += mix(0.0, 1.0, circle + sin(uTime * 1.2) + 0.3);
+
   // output
   gl_FragColor = texture2D(uSampler0, textureCoord);
 }

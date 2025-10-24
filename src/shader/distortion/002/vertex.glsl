@@ -34,8 +34,8 @@ void main() {
 
   vec3 vertexPosition = aVertexPosition;
 
-  // simple sine wave distortion along the z axis based on the x position of the vertex
-  vertexPosition.z = sin((vertexPosition.x * PI * frequency) + (uTime * speed)) * amplitude;
+  // simple sine wave distortion along the z axis based on the y position of the vertex
+  vertexPosition.z = sin((vertexPosition.y * PI * frequency) + (uTime * speed)) * amplitude;
 
   // output
   gl_Position = uPMatrix * uMVMatrix * vec4(vertexPosition, 1.0);

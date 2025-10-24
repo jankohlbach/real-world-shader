@@ -11,7 +11,7 @@
   --fluid-max: 1720;
   --container-max-width: #{to-rem(1920)};
   --grid-margin: #{to-rem(20)};
-  --grid-gutter: #{clamp-fluid(30, 60)};
+  --grid-gutter: #{clamp-fluid(24, 60)};
   --grid-max-width: calc(var(--container-max-width) - var(--grid-margin) * 2);
   --grid-columns: 12;
 

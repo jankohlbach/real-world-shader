@@ -28,14 +28,13 @@ varying vec2 vTextureCoord; // mapped
 
 void main() {
   // settings
-  float frequency = 1.0; // negative for inverted wave
-  float speed = 2.0;
-  float amplitude = 0.025;
+  float strength = -0.01; // positive for inverted effect
+  float waves = 2.0;
 
   vec3 vertexPosition = aVertexPosition;
 
-  // simple sine wave distortion along the z axis based on the x position of the vertex
-  vertexPosition.z = sin((vertexPosition.x * PI * frequency) + (uTime * speed)) * amplitude;
+  // apply scroll-based curve on y axis
+  vertexPosition.y = vertexPosition.y - (cos(vertexPosition.x * PI * waves) * uScrollVelocity * strength);
 
   // output
   gl_Position = uPMatrix * uMVMatrix * vec4(vertexPosition, 1.0);

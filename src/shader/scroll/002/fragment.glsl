@@ -20,7 +20,5 @@ varying vec2 vTextureCoord; // mapped
 
 void main() {
   vec2 textureCoord = vTextureCoord;
-
-  // output
   gl_FragColor = texture2D(uSampler0, textureCoord);
 }
