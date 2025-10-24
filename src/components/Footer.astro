@@ -1,0 +1,86 @@
+<footer>
+  <div class="left">
+    <a href="/legal">Legal</a>
+    <a href="/privacy">Privacy</a>
+    <a href="https://github.com/jankohlbach/real-world-shader" target="_blank"
+      >Project on GitHub ↗</a
+    >
+    <a
+      href="https://tracking.jnkl.dev/share/r9uHvDLf4b7uG4ql/real-world-shader.vercel.app"
+      target="_blank">Tracking ↗</a
+    >
+  </div>
+  <div class="right">
+    <span>
+      made by <a href="https://jankohlbach.com" target="_blank">Jan</a>
+    </span>
+    <span>
+      <a
+        class="support"
+        href="https://buymeacoffee.com/jankohlbach"
+        target="_blank">🍺 support me with a beer</a
+      >
+    </span>
+  </div>
+</footer>
+
+<style lang="scss">
+  footer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    gap: to-rem(25);
+    padding-top: var(--s-m);
+    margin-top: var(--s-m);
+    border-top: 1px solid var(--c-light);
+
+    .left,
+    .right {
+      grid-column: span 2;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: to-rem(5) var(--s-s);
+    }
+
+    .left {
+      grid-row: 1;
+    }
+
+    .right {
+      grid-row: 2;
+      row-gap: to-rem(25);
+
+      > span {
+        width: 100%;
+      }
+    }
+  }
+
+  .support {
+    display: inline-block;
+    padding: 0.6em 0.8em;
+    color: var(--c-dark);
+    text-decoration: none;
+    background-color: var(--c-accent);
+    border-radius: 0.2em;
+  }
+
+  @media (min-width: 1024px) {
+    footer {
+      .left,
+      .right {
+        grid-row: 1;
+        grid-column: span 1;
+      }
+
+      .right {
+        justify-content: flex-end;
+
+        > span {
+          width: auto;
+        }
+      }
+    }
+  }
+</style>

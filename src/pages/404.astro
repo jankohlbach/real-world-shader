@@ -1,0 +1,23 @@
+---
+import Layout from '@layouts/Layout.astro';
+import HeaderGeneric from '@components/HeaderGeneric.astro';
+---
+
+<Layout>
+  <HeaderGeneric title="Whooops! Something went wrong." />
+
+  <main>
+    <section>
+      <div class="wrap">
+        <video src="/404.mp4" muted loop autoplay playsinline></video>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style lang="scss">
+  .wrap {
+    max-width: to-rem(1280);
+    margin-inline: auto;
+  }
+</style>

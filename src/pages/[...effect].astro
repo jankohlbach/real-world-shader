@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content';
+
+import Layout from '@layouts/Layout.astro';
+import HeaderGeneric from '@components/HeaderGeneric.astro';
+import EffectTile from '@components/EffectTile.astro';
+import ShaderLinks from '@components/ShaderLinks.astro';
+
+export async function getStaticPaths() {
+  const effects = await getCollection('effects');
+
+  return effects.map((effect) => ({
+    params: { effect: effect.id },
+    props: { effect },
+  }));
+}
+
+const { effect } = Astro.props;
+---
+
+<Layout>
+  <HeaderGeneric title={effect.data.title}>
+    <p class="richtext">{effect.data.description}</p>
+    <ShaderLinks effect={effect} />
+  </HeaderGeneric>
+
+  <main>
+    <section>
+      <div class="wrap">
+        <EffectTile effect={effect} />
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style lang="scss">
+  .wrap {
+    max-width: 80vmin;
+    margin-inline: auto;
+    margin-block: clamp-fluid(50, 75);
+  }
+</style>

@@ -1,0 +1,110 @@
+---
+import '../styles/index.scss';
+
+import Cursor from '@components/Cursor.astro';
+import PageDecoration from '@components/PageDecoration.astro';
+import Footer from '@components/Footer.astro';
+import Canvas from '@components/Canvas.astro';
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const title = 'real world shader';
+const description =
+  'a collection of shader effects that are actually useful in real world client projects';
+const shareImage = new URL('og-image.jpg', Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#151515" />
+    <title>{title}</title>
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="canonical" href={canonicalURL} />
+    <!-- TODO: remove when going live -->
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={shareImage} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={shareImage} />
+    <link
+      rel="preload"
+      href="/fonts/Erstling/Erstling-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <script
+      is:inline
+      defer
+      src="https://tracking.jnkl.dev/script.js"
+      data-website-id="cb5b5e20-08da-4ab4-9207-6e3bd7a7d7df"
+      data-domains="real-world-shader.jankohlbach.com"
+      data-do-not-track="true"></script>
+  </head>
+  <body>
+    <Cursor />
+
+    <div class="page-wrap container">
+      <PageDecoration />
+
+      <slot />
+
+      <Footer />
+    </div>
+
+    <Canvas />
+
+    <script>
+      import '../scripts/scroll.ts';
+      import '../scripts/inview.ts';
+      import '../scripts/console.ts';
+    </script>
+  </body>
+</html>
+
+<style lang="scss">
+  body {
+    &::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      background-image: url('/bg-texture.webp');
+      background-size: cover;
+      background-repeat: no-repeat;
+      mix-blend-mode: multiply;
+      pointer-events: none;
+    }
+  }
+
+  .page-wrap {
+    --star-width: #{clamp-fluid(25, 40)};
+
+    position: relative;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: calc(var(--star-width) * 1.5);
+    margin: clamp-fluid(15, 25);
+    min-height: calc(100dvh - clamp-fluid(30, 50));
+  }
+
+  @media (min-width: 1920px) {
+    .page-wrap {
+      margin-inline: auto;
+    }
+  }
+</style>

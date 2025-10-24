@@ -1,0 +1,42 @@
+---
+const { disableButtonBack, title } = Astro.props;
+---
+
+<header>
+  {!disableButtonBack && <a href="/">&lt;- back</a>}
+
+  <h1>{title}</h1>
+
+  {
+    Astro.slots.has('default') && (
+      <div class="content">
+        <slot />
+      </div>
+    )
+  }
+</header>
+
+<style lang="scss">
+  header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: to-rem(36);
+    padding-bottom: var(--s-m);
+    margin-bottom: var(--s-m);
+    border-bottom: 1px solid var(--c-light);
+
+    a {
+      text-decoration: none;
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: inherit;
+      max-width: 60ch;
+      line-height: 1.2;
+    }
+  }
+</style>

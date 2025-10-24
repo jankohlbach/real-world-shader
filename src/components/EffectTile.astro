@@ -1,0 +1,19 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  effect: CollectionEntry<'effects'>;
+}
+
+const { effect } = Astro.props;
+---
+
+<div class="image" data-canvas data-shader={effect.id}>
+  <img src={effect.data.image} crossorigin="" />
+</div>
+
+<style lang="scss">
+  img {
+    aspect-ratio: 1 / 1;
+  }
+</style>

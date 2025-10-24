@@ -1,0 +1,337 @@
+<script>
+  import type { PlaneParams } from 'curtainsjs';
+
+  import { Curtains, Plane, Vec2 } from 'curtainsjs';
+  import { gsap } from 'gsap';
+  import { CustomEase } from 'gsap/all';
+
+  import { lenis } from '../scripts/scroll';
+  import { lerp, hasHover } from '../scripts/utils';
+
+  import baseVertexShader from '../shader/vertex.glsl';
+  import baseFragmentShader from '../shader/fragment.glsl';
+
+  // store custom mouse position data per plane
+  interface CustomUserData {
+    mousePosCurrent: Vec2;
+    mousePosTarget: Vec2;
+    wasMouseInside?: boolean;
+  }
+
+  type CustomPlane = Plane & { userData: CustomUserData };
+
+  // import all shader files from the shader directory
+  const shaderFiles = import.meta.glob(['../shader/**/*.glsl'], {
+    eager: true,
+  });
+
+  // find correct shader files based on the category and number (e.g. hover/002)
+  const findShaderFiles = (shader: string) => {
+    return {
+      vertex: (
+        shaderFiles[`../shader/${shader}/vertex.glsl`] as {
+          default: string | undefined;
+        }
+      )?.default,
+      fragment: (
+        shaderFiles[`../shader/${shader}/fragment.glsl`] as {
+          default: string | undefined;
+        }
+      )?.default,
+    };
+  };
+
+  window.addEventListener('load', () => {
+    gsap.registerPlugin(CustomEase);
+
+    // check for hover, will display fake cursor when no hover support
+    const supportsHover = hasHover();
+    const simulatedCursor = {
+      enabled: !supportsHover,
+      time: 0,
+      baseSpeed: 1.2,
+      amplitude: { x: 0.3, y: 0.2 },
+      frequency: { x: 0.8, y: 1.0 },
+      offset: { x: 0, y: Math.PI * 0.3 },
+      center: { x: 0.5, y: 0.5 },
+    };
+    const fakeCursor: HTMLElement | null = document.querySelector(
+      '[data-js="fake-cursor"]',
+    );
+
+    // store scroll, mouse position and time data for uniforms
+    const scroll = {
+      velocity: 0,
+    };
+    const mouse = {
+      posTarget: new Vec2(0.5, 0.5),
+      lerp: 0.05,
+    };
+    const startTime = performance.now();
+
+    // set up curtains and planes
+    const planes: CustomPlane[] = [];
+    const curtains = new Curtains({
+      container: document.querySelector('[data-js="canvas"]') || undefined,
+      pixelRatio: Math.min(2, window.devicePixelRatio),
+      watchScroll: false,
+    });
+
+    curtains
+      .onError(() => {
+        document.body.classList.add('no-curtains');
+      })
+      .onContextLost(() => {
+        curtains.restoreContext();
+      });
+
+    const planeElements: NodeListOf<HTMLElement> =
+      document.querySelectorAll('[data-canvas]');
+
+    const params: PlaneParams = {
+      vertexShader: baseVertexShader,
+      fragmentShader: baseFragmentShader,
+      widthSegments: 100,
+      heightSegments: 100,
+      transparent: true,
+      uniforms: {
+        aspectRatio: {
+          name: 'uAspectRatio',
+          type: '1f',
+          value: 1.0,
+        },
+        time: {
+          name: 'uTime',
+          type: '1f',
+          value: 0.0,
+        },
+        scrollVelocity: {
+          name: 'uScrollVelocity',
+          type: '1f',
+          value: 0.0,
+        },
+        mouseEnter: {
+          name: 'uMouseEnter',
+          type: '1f',
+          value: 0.0,
+        },
+        mouseOverPos: {
+          name: 'uMouseOverPos',
+          type: '2f',
+          value: new Vec2(0.5, 0.5),
+        },
+      },
+    };
+
+    planeElements.forEach((planeElement) => {
+      // find shader for specific plane
+      const shader = planeElement.getAttribute('data-shader');
+
+      if (shader) {
+        const foundShaderFiles = findShaderFiles(shader);
+
+        if (
+          foundShaderFiles &&
+          foundShaderFiles.vertex &&
+          foundShaderFiles.fragment
+        ) {
+          params.vertexShader = foundShaderFiles.vertex;
+          params.fragmentShader = foundShaderFiles.fragment;
+        } else {
+          params.vertexShader = baseVertexShader;
+          params.fragmentShader = baseFragmentShader;
+        }
+      }
+
+      // create plane
+      const plane = new Plane(curtains, planeElement, params) as CustomPlane;
+      plane.userData.mousePosCurrent = new Vec2(0.5, 0.5);
+      plane.userData.mousePosTarget = new Vec2(0.5, 0.5);
+      plane.userData.wasMouseInside = false;
+      planes.push(plane);
+
+      planeElement.addEventListener('mouseenter', () => {
+        gsap.to(plane.uniforms.mouseEnter, {
+          value: 1.0,
+          duration: 0.6,
+          ease: CustomEase.create('custom', '0.4, 0, 0.2, 1'),
+        });
+      });
+      planeElement.addEventListener('mouseleave', () => {
+        gsap.to(plane.uniforms.mouseEnter, {
+          value: 0.0,
+          duration: 0.6,
+          ease: CustomEase.create('custom', '0.4, 0, 0.2, 1'),
+        });
+      });
+
+      // render loop
+      plane.onRender(() => {
+        const currentTime = performance.now();
+        const elapsedTime = (currentTime - startTime) / 1000;
+
+        // simulate cursor movement on mobile
+        if (simulatedCursor.enabled) {
+          simulatedCursor.time = elapsedTime * simulatedCursor.baseSpeed;
+
+          const x =
+            simulatedCursor.center.x +
+            Math.sin(
+              simulatedCursor.time * simulatedCursor.frequency.x +
+                simulatedCursor.offset.x,
+            ) *
+              simulatedCursor.amplitude.x +
+            Math.sin(
+              simulatedCursor.time * simulatedCursor.frequency.x * 0.7 +
+                simulatedCursor.offset.x * 1.3,
+            ) *
+              simulatedCursor.amplitude.x *
+              0.3;
+
+          const y =
+            simulatedCursor.center.y +
+            Math.sin(
+              simulatedCursor.time * simulatedCursor.frequency.y +
+                simulatedCursor.offset.y,
+            ) *
+              simulatedCursor.amplitude.y +
+            Math.cos(
+              simulatedCursor.time * simulatedCursor.frequency.y * 0.9 +
+                simulatedCursor.offset.y * 0.8,
+            ) *
+              simulatedCursor.amplitude.y *
+              0.4;
+
+          mouse.posTarget.set(
+            Math.max(0, Math.min(window.innerWidth, x * window.innerWidth)),
+            Math.max(0, Math.min(window.innerHeight, y * window.innerHeight)),
+          );
+
+          const planeRect = plane.htmlElement.getBoundingClientRect();
+          const isInside =
+            mouse.posTarget.x >= planeRect.left &&
+            mouse.posTarget.x <= planeRect.right &&
+            mouse.posTarget.y >= planeRect.top &&
+            mouse.posTarget.y <= planeRect.bottom;
+          const wasInside = plane.userData.wasMouseInside || false;
+
+          if (isInside && !wasInside) {
+            gsap.to(plane.uniforms.mouseEnter, {
+              value: 1.0,
+              duration: 0.6,
+              ease: CustomEase.create('custom', '0.4, 0, 0.2, 1'),
+            });
+          } else if (!isInside && wasInside) {
+            gsap.to(plane.uniforms.mouseEnter, {
+              value: 0.0,
+              duration: 0.6,
+              ease: CustomEase.create('custom', '0.4, 0, 0.2, 1'),
+            });
+          }
+
+          plane.userData.wasMouseInside = isInside;
+
+          fakeCursor?.style.setProperty('--cursor-x', x.toString());
+          fakeCursor?.style.setProperty('--cursor-y', y.toString());
+        }
+
+        // lerp mouse position for smooth movement
+        plane.userData.mousePosTarget = plane.mouseToPlaneCoords(
+          mouse.posTarget,
+        );
+        plane.userData.mousePosCurrent.x = lerp(
+          plane.userData.mousePosCurrent.x,
+          plane.userData.mousePosTarget.x,
+          mouse.lerp,
+        );
+        plane.userData.mousePosCurrent.y = lerp(
+          plane.userData.mousePosCurrent.y,
+          plane.userData.mousePosTarget.y,
+          mouse.lerp,
+        );
+
+        // update uniforms
+        plane.uniforms.aspectRatio.value =
+          plane.getBoundingRect().width / plane.getBoundingRect().height;
+        plane.uniforms.time.value = elapsedTime;
+        plane.uniforms.scrollVelocity.value = scroll.velocity;
+        plane.uniforms.mouseOverPos.value = plane.userData.mousePosCurrent;
+      });
+    });
+
+    lenis.on('scroll', (e) => {
+      // sync curtains with scroll
+      curtains.updateScrollValues(window.scrollX, window.scrollY);
+
+      // store scroll velocity for uniforms
+      scroll.velocity = e.velocity;
+    });
+
+    if (supportsHover) {
+      // store mouse position for uniforms
+      window.addEventListener('mousemove', (e) => {
+        mouse.posTarget.set(e.clientX, e.clientY);
+      });
+    } else {
+      // find section with hover planes to show fake cursor only there on mobile
+      const hoverPlaneElements = [...planeElements].filter((planeElement) =>
+        planeElement.dataset.shader?.includes('hover'),
+      );
+      const hoverSection = hoverPlaneElements[0]?.closest('section');
+
+      if (hoverSection) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              fakeCursor?.classList.add('is-active');
+            } else {
+              fakeCursor?.classList.remove('is-active');
+            }
+          });
+        });
+        observer.observe(hoverSection);
+      }
+    }
+  });
+</script>
+
+<div class="canvas" data-js="canvas"></div>
+<svg viewBox="0 0 24 24" fill="none" class="fake-cursor" data-js="fake-cursor">
+  <path
+    d="M1.64648 0.541016C1.91485 0.47689 2.19576 0.488451 2.45801 0.574219H2.45898L22.4688 7.1084V7.10742C22.7541 7.20361 23.0038 7.38389 23.1855 7.62402C23.3679 7.86511 23.4729 8.15606 23.4873 8.45801C23.5016 8.76012 23.4245 9.06002 23.2656 9.31738C23.1069 9.57449 22.8738 9.77681 22.5977 9.89941L22.5801 9.90723L16.3096 12.3154L15.5908 12.5918L16.1357 13.1367L23.207 20.2061C23.3944 20.3935 23.499 20.648 23.499 20.9131C23.499 21.1781 23.3943 21.4326 23.207 21.6201L21.6201 23.207C21.5272 23.3002 21.4165 23.3743 21.2949 23.4248C21.1734 23.4753 21.0427 23.501 20.9111 23.501C20.7797 23.5009 20.6497 23.4752 20.5283 23.4248C20.4068 23.3743 20.296 23.3003 20.2031 23.207H20.2021L13.1309 16.1357L12.5869 15.5908L12.3105 16.3096L9.90918 22.5752L9.89844 22.6025C9.78392 22.8692 9.59319 23.0965 9.35059 23.2559C9.10788 23.4152 8.82352 23.5 8.5332 23.499H8.45508C8.15251 23.4863 7.86083 23.381 7.62012 23.1973C7.37949 23.0135 7.20135 22.7601 7.10938 22.4717L7.1084 22.4688L0.574219 2.45898V2.45801C0.488451 2.19576 0.47689 1.91485 0.541016 1.64648C0.605178 1.37807 0.742353 1.13265 0.9375 0.9375C1.13265 0.742353 1.37807 0.605178 1.64648 0.541016Z"
+    fill="black"
+    stroke="white"></path>
+</svg>
+
+<style lang="scss">
+  .canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: var(--zi-canvas);
+    pointer-events: none;
+  }
+
+  .fake-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: var(--zi-cursor);
+    width: to-rem(20);
+    height: to-rem(20);
+    opacity: 0;
+    user-select: none;
+    pointer-events: none;
+    transform: translate3d(
+      calc((100vw * var(--cursor-x) - 100%)),
+      calc((100vh * var(--cursor-y) - 100%)),
+      0
+    );
+    transition: opacity 0.4s var(--ease-smooth);
+
+    &.is-active {
+      opacity: 1;
+    }
+  }
+</style>

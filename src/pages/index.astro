@@ -1,0 +1,112 @@
+---
+import { getCollection } from 'astro:content';
+
+import Layout from '@layouts/Layout.astro';
+import HeaderGeneric from '@components/HeaderGeneric.astro';
+import EffectTile from '@components/EffectTile.astro';
+import ShaderLinks from '@components/ShaderLinks.astro';
+
+const effects = await getCollection('effects');
+const groupedEffects = Object.groupBy(effects, ({ id }) => id.split('/')[0]);
+
+const categoryConfig = [
+  { key: 'distortion', title: 'Distortion Effects' },
+  { key: 'hover', title: 'Effects based on hover' },
+  { key: 'scroll', title: 'Effects based on scroll' },
+  { key: 'happy-little-accidents', title: 'Happy Little Accidents' },
+];
+
+const orderedCategories = categoryConfig
+  .filter(({ key }) => groupedEffects[key])
+  .map(({ key, title }) => ({
+    key,
+    title,
+    effects:
+      groupedEffects[key]?.sort((a, b) => a.id.localeCompare(b.id)) || [],
+  }));
+---
+
+<Layout>
+  <HeaderGeneric disableButtonBack={true} title="real world shader">
+    <p class="richtext">
+      This is just a little playground for me. I wanted a place to collect
+      various shader effects that I can actually use in real world client
+      projects.<br />
+      All the code of this website is public (<a
+        href="https://github.com/jankohlbach/real-world-shader"
+        target="_blank">GitHub ↗</a
+      >) so you can see how I'm doing this and copy it for your projects if you
+      want.<br />
+      I also made the shaders directly accessible for you to copy or expand on.
+    </p>
+  </HeaderGeneric>
+
+  <main>
+    {
+      orderedCategories.map(({ title, effects }) => (
+        <section>
+          <h2>{title}</h2>
+          <div class="grid">
+            {effects.map((effect) => (
+              <div class="tile">
+                <a href={`/${effect.id}`}>
+                  <EffectTile effect={effect} />
+                  <h3>{effect.data.title}</h3>
+                </a>
+                <ShaderLinks effect={effect} />
+              </div>
+            ))}
+          </div>
+        </section>
+      ))
+    }
+
+    <section>
+      <h2>more to come ...</h2>
+      <br />
+      <h3 class="lowercase">
+        You have ideas, requests, or a shader you want to contribute? -&gt; <a
+          href="mailto:rws@jankohlbach.com">write me a mail</a
+        > or on socials @jankohlbach
+      </h3>
+    </section>
+  </main>
+</Layout>
+
+<style lang="scss">
+  section + section {
+    padding-top: var(--s-m);
+    margin-top: var(--s-m);
+    border-top: 1px solid var(--c-light);
+  }
+
+  .grid {
+    margin-top: to-rem(36);
+  }
+
+  .tile {
+    grid-column: span 12;
+    display: flex;
+    flex-direction: column;
+    gap: to-rem(14);
+
+    a {
+      display: flex;
+      flex-direction: column;
+      gap: inherit;
+      text-decoration: none;
+    }
+  }
+
+  @media (min-width: 520px) {
+    .tile {
+      grid-column: span 6;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .tile {
+      grid-column: span 3;
+    }
+  }
+</style>
