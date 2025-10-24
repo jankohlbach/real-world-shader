@@ -11,6 +11,7 @@
   import baseVertexShader from '../shader/vertex.glsl';
   import baseFragmentShader from '../shader/fragment.glsl';
 
+  // store custom mouse position data per plane
   interface CustomUserData {
     mousePosCurrent: Vec2;
     mousePosTarget: Vec2;
@@ -19,10 +20,12 @@
 
   type CustomPlane = Plane & { userData: CustomUserData };
 
+  // import all shader files from the shader directory
   const shaderFiles = import.meta.glob(['../shader/**/*.glsl'], {
     eager: true,
   });
 
+  // find correct shader files based on the category and number (e.g. hover/002)
   const findShaderFiles = (shader: string) => {
     return {
       vertex: (
@@ -41,6 +44,7 @@
   window.addEventListener('load', () => {
     gsap.registerPlugin(CustomEase);
 
+    // check for hover, will display fake cursor when no hover support
     const supportsHover = hasHover();
     const simulatedCursor = {
       enabled: !supportsHover,
@@ -55,6 +59,7 @@
       '[data-js="fake-cursor"]',
     );
 
+    // store scroll, mouse position and time data for uniforms
     const scroll = {
       velocity: 0,
     };
@@ -63,8 +68,9 @@
       lerp: 0.05,
     };
     const startTime = performance.now();
-    const planes: CustomPlane[] = [];
 
+    // set up curtains and planes
+    const planes: CustomPlane[] = [];
     const curtains = new Curtains({
       container: document.querySelector('[data-js="canvas"]') || undefined,
       pixelRatio: Math.min(2, window.devicePixelRatio),
@@ -81,24 +87,6 @@
 
     const planeElements: NodeListOf<HTMLElement> =
       document.querySelectorAll('[data-canvas]');
-
-    const hoverPlaneElements = [...planeElements].filter((planeElement) =>
-      planeElement.dataset.shader?.includes('hover'),
-    );
-    const hoverSection = hoverPlaneElements[0]?.closest('section');
-
-    if (hoverSection) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            fakeCursor?.classList.add('is-active');
-          } else {
-            fakeCursor?.classList.remove('is-active');
-          }
-        });
-      });
-      observer.observe(hoverSection);
-    }
 
     const params: PlaneParams = {
       vertexShader: baseVertexShader,
@@ -136,6 +124,7 @@
     };
 
     planeElements.forEach((planeElement) => {
+      // find shader for specific plane
       const shader = planeElement.getAttribute('data-shader');
 
       if (shader) {
@@ -154,6 +143,7 @@
         }
       }
 
+      // create plane
       const plane = new Plane(curtains, planeElement, params) as CustomPlane;
       plane.userData.mousePosCurrent = new Vec2(0.5, 0.5);
       plane.userData.mousePosTarget = new Vec2(0.5, 0.5);
@@ -175,10 +165,12 @@
         });
       });
 
+      // render loop
       plane.onRender(() => {
         const currentTime = performance.now();
         const elapsedTime = (currentTime - startTime) / 1000;
 
+        // simulate cursor movement on mobile
         if (simulatedCursor.enabled) {
           simulatedCursor.time = elapsedTime * simulatedCursor.baseSpeed;
 
@@ -239,11 +231,11 @@
 
           plane.userData.wasMouseInside = isInside;
 
-          // TODO: only show when hover effects section is visible
           fakeCursor?.style.setProperty('--cursor-x', x.toString());
           fakeCursor?.style.setProperty('--cursor-y', y.toString());
         }
 
+        // lerp mouse position for smooth movement
         plane.userData.mousePosTarget = plane.mouseToPlaneCoords(
           mouse.posTarget,
         );
@@ -258,6 +250,7 @@
           mouse.lerp,
         );
 
+        // update uniforms
         plane.uniforms.aspectRatio.value =
           plane.getBoundingRect().width / plane.getBoundingRect().height;
         plane.uniforms.time.value = elapsedTime;
@@ -267,14 +260,37 @@
     });
 
     lenis.on('scroll', (e) => {
+      // sync curtains with scroll
       curtains.updateScrollValues(window.scrollX, window.scrollY);
+
+      // store scroll velocity for uniforms
       scroll.velocity = e.velocity;
     });
 
     if (supportsHover) {
+      // store mouse position for uniforms
       window.addEventListener('mousemove', (e) => {
         mouse.posTarget.set(e.clientX, e.clientY);
       });
+    } else {
+      // find section with hover planes to show fake cursor only there on mobile
+      const hoverPlaneElements = [...planeElements].filter((planeElement) =>
+        planeElement.dataset.shader?.includes('hover'),
+      );
+      const hoverSection = hoverPlaneElements[0]?.closest('section');
+
+      if (hoverSection) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              fakeCursor?.classList.add('is-active');
+            } else {
+              fakeCursor?.classList.remove('is-active');
+            }
+          });
+        });
+        observer.observe(hoverSection);
+      }
     }
   });
 </script>
