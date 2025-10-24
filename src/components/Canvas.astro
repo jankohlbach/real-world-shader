@@ -7,6 +7,7 @@
 
   import { lenis } from '../scripts/scroll';
   import { lerp, hasHover } from '../scripts/utils';
+
   import baseVertexShader from '../shader/vertex.glsl';
   import baseFragmentShader from '../shader/fragment.glsl';
 
@@ -78,7 +79,26 @@
         curtains.restoreContext();
       });
 
-    const planeElements = document.querySelectorAll('[data-canvas]');
+    const planeElements: NodeListOf<HTMLElement> =
+      document.querySelectorAll('[data-canvas]');
+
+    const hoverPlaneElements = [...planeElements].filter((planeElement) =>
+      planeElement.dataset.shader?.includes('hover'),
+    );
+    const hoverSection = hoverPlaneElements[0]?.closest('section');
+
+    if (hoverSection) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            fakeCursor?.classList.add('is-active');
+          } else {
+            fakeCursor?.classList.remove('is-active');
+          }
+        });
+      });
+      observer.observe(hoverSection);
+    }
 
     const params: PlaneParams = {
       vertexShader: baseVertexShader,
@@ -284,6 +304,7 @@
     z-index: var(--zi-cursor);
     width: to-rem(20);
     height: to-rem(20);
+    opacity: 0;
     user-select: none;
     pointer-events: none;
     transform: translate3d(
@@ -291,5 +312,10 @@
       calc((100vh * var(--cursor-y) - 100%)),
       0
     );
+    transition: opacity 0.4s var(--ease-smooth);
+
+    &.is-active {
+      opacity: 1;
+    }
   }
 </style>
